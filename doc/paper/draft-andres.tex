@@ -1,0 +1,126 @@
+\documentclass[twocolumn, draft]{emulateapj}
+
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{float}
+
+\bibliographystyle{plainnat}
+
+\begin{document}
+
+\title{[Identification of Spectral Lines using Sparse Coding]}
+\author{Andr\'es Riveros,
+		Karim Pichara,
+		Pavlos Protopapas,
+		Diego Mardones,
+		Paulina Troncoso and
+		Mauricio Araya}
+
+\begin{abstract}
+Astronomy is facing new challenges on how to analyze big data and therefore, how to search or predict events/patterns of interest. The automatic detection and identification of spectral lines is an astronomical problem that has not been solved yet, so currently the identification is limited to the manual analysis of spectra by radio-astronomers. The use of spectroscopy allows to describe the chemical composition of astronomical objects through the emissions from the interaction between the radiation and the matter, thus causing emission lines. New observations in previously unexplored wavelength regions that will be available thanks to project as the Atacama Large Millimeter Array (ALMA), with which it is intended to use machine learning techniques to identify automatically these emission lines. Using simulated data based on the observations that has been obtained from the radio-telescope ALMA, it is proposed an algorithm with which to identify lines in order to determine the molecules that compose the observed galaxies. For this will be used the technique of Sparse Coding, that will evaluate the molecules that can origin the observed spectra, and it is expected to be found the best combination of molecules to recreate that spectra. From this algorithm, the astronomers may obtain a probability associated to the possible combinations of molecules composing astronomical objects.
+\end{abstract}
+
+\keywords{spectral lines: emission lines; spectroscophy techniques; method: machine learning}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+This project is developed as part of the development of a collaborative project between several Chilean universities
+for the initiative of the creation of a Chilean virtual observatory Observatorio Virtual Chileno (ChiVO).
+ChiVO is an on-line platform that will make available to astronomers the measures of the radio-telescope Atacama
+Large Millimeter Array (ALMA). Also, ChiVo will provide several tools in order to process the data of ALMA measurements.
+
+El data from the radio-telescope ALMA consist of data cubes. The three dimensions correspond to two spatial dimensions, and
+a third dimension of wave frequency. This means that for each spatial point, can be obtained a spectrogram.
+The Pontifical Catholic University of Chile will participate with the development of an algorithm to identify spectral lines
+using machine learning techniques. This tool takes as input a observed spectra and returns a list with the best prediction of
+molecules that by the theoretical behavior their spectral lines describes the observed spectra.
+
+Currently, there is not available ALMA data to train a model, so this project has been developed using synthetic data.
+The Astronomical SYnthetic Data Observatory (ASYDO) project, a parallel project of ChiVO, will be the used in order to generate synthetic data to test the algorithm.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Related work}
+\label{sec:related}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Background}
+\label{sec:background}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Spectroscopy}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Sparse Coding}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Dictionary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Methodology}
+\label{sec:methodology}
+
+\subsection{Splatalogue}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=5cm]{figs/fig1.pdf}
+	\caption{...}
+	\label{fig:fig1}
+\end{figure}
+
+\begin{figure*}[ht]
+	\centering
+	\subfigure[Title 2.1.]{
+		\includegraphics[width=5cm]{figs/fig2-1.pdf}
+		\label{subfig:fig2-1}
+	}
+	\subfigure[Title 2.2.]{
+		\includegraphics[width=5cm]{figs/fig2-2.pdf}
+		\label{subfig:fig2-2}
+	}
+	\caption{In figure \ref{subfig:fig2-2} is shown that ...}
+	\label{fig:subfigs}
+\end{figure*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Synthetic Data}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Codification}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Results}
+\label{sec:results}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Presence of Isotopes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions}
+\label{sec:conclusions}
+
+[What is good, what was bad, and what we want to do next but just a glimpse of that because we don't want copycats]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliography{paper-meta}
+
+\end{document}
