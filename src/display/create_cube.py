@@ -29,7 +29,8 @@ if __name__ != "create_cube":
 
         for mol in isolist:
 
-            univ.create_source('observed-'+mol, 0.0, 0.0)
+            univ.create_source('observed-'+mol, cube_params['alpha'],
+                                 cube_params['delta'])
             s_x=random.uniform(50, 150)
             s_y=random.uniform(40, 100)
             rot=random.uniform(10, 150)

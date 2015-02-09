@@ -3,6 +3,7 @@ import math
 
 import numpy as np
 
+S_FACTOR = 2.354820045031  # sqrt(8*ln2)
 SPEED_OF_LIGHT = 299792458.0
 
 def gaussian(x, mu, sig):

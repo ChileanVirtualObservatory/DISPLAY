@@ -13,50 +13,48 @@ if __name__ != "create_words":
     # Function to create the words necessary to fit a sparse coding model
     # to the observed spectra in the previous created cube. It uses:
     #
+    #         - molist  : dictionary of molecules and its respective isotopes
     #         - freq    : spectral center (frequency)
     #         - spe_res : spectral resolution
     #         - spe_bw  : spectral bandwidth
     #         - s_f     : the width of the spectral lines (fwhm)
-    # Returns a DataFrame with a vector for each theoretical line for each isotope
-    # in molist
-    def gen_words(isolist, cube_params, cube_name):
+    # Returns a DataFrame with a vector for each theoretical line for each
+    # isotope in molist
+    def gen_words(molist, cube_params):
 
         log = sys.stdout
         dbpath = 'ASYDO'
 
+        s_f = cube_params['s_f']
+        freq = cube_params['freq']
+        spe_bw = cube_params['spe_bw']
+        spe_res = cube_params['spe_res']
+
         dictionary = pd.DataFrame([])
 
-        for iso in cube_params['molist']:
+        for mol in molist:
 
-            univ=vu.Universe(log)
-            univ.create_source('word-'+ iso, 0.0, 0.0)
-            s_x=1
-            s_y=1
-            rot=0
-            s_f=cube_params['s_f']
-            angle=math.pi
-            model=vu.IMCM(log,dbpath,iso,temp,('normal',s_x,s_y,angle),
-                                              ('skew',s_f,0),
-                                              ('linear',angle,rot))
-            model.set_radial_velocity(rvel)
-            univ.add_component('word-'+ iso, model)
+            for iso in molist[mol]:
+                univ=vu.Universe(log)
+                univ.create_source('word-'+ iso)
+                s_x=1
+                s_y=1
+                rot=0
+                s_f=cube_params['s_f']
+                angle=math.pi
+                model=vu.IMCM(log,dbpath,iso,temp,('normal',s_x, s_y, angle),
+                                                  ('skew', s_f, 0),
+                                                  ('linear', angle, rot))
+                model.set_radial_velocity(rvel)
+                univ.add_component('word-'+ iso, model)
 
-            alpha = 0.0
-            delta = 0.0
+                lines = univ.gen_cube('observerd', freq, spe_res, spe_bw)
 
-            line = univ.gen_cube(
-                                'observerd', alpha, delta, freq, 10, 20,
-                                 cube_params['spe_res'], cube_params['spe_bw']
-                                )
+                freq = np.arange(freq - int(spe_bw/2),freq + int(spe_bw/2),spe_res)
+                values = lines.get_spectrum()
 
-            freq = [int(double) for double in cube.freq_axis]
-            values = cube.get_spectrum()
-
-            dictionary[iso] = values
-            dictionary.index = freq
-
-            plt.plot(cube.freq_axis, cube.get_spectrum())
-            plt.show()
+                dictionary[iso] = values
+                dictionary.index = freq
 
         # range = str(int((freq - spe_bw/2.0)/1000.0)) + " - " + str(int((freq + spe_bw/2.0)/1000.0))
         # dictionary.T.to_csv("dictionary/" + range + ".csv")

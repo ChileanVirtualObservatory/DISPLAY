@@ -1,10 +1,21 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-
+import pickle
 import display.create_cube
 import display.create_words
-import display.script_spams
+import display.detect
+
+def save_dictionary(D):
+  output = open('dictionary.pkl', 'wb')
+  pickle.dump(D, output)
+  output.close()
+
+def load_dictionary():
+  input_file = open('dictionary.pkl', "rb" )
+  D = pickle.load( input_file )
+  input_file.close()
+  return D
 
 # Dictionary of molecules and its respective isotopes.
 molist = {
@@ -116,7 +127,12 @@ cube_params = {
 #         - s_f     : the width of the spectral lines (fwhm)
 # Returns a DataFrame with a vector for each theoretical line for each isotope
 # in molist
-D = display.create_words.gen_words(molist, cube_params)
+# D = display.create_words.gen_words(molist, cube_params)
+# save_dictionary(D)
+D = load_dictionary()
+
+file_path = cube_name + '.fits'
+X = display.detect.detect_lines(cube_params, file_path)
 
 
 

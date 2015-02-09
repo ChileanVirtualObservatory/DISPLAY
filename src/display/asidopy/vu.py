@@ -58,11 +58,11 @@ class Universe:
         self.log = log
         self.sources = dict()
 
-    def create_source(self, name, alpha, delta):
+    def create_source(self, name):
         """
-        A source needs a name and a spatial position (alpha,delta).
+        A source needs a name.
         """
-        self.sources[name] = Source(self.log, name, alpha, delta)
+        self.sources[name] = Source(self.log, name)
 
     def add_component(self, source_name, model):
         """
@@ -71,21 +71,17 @@ class Universe:
         """
         self.sources[source_name].add_component(model)
 
-    def gen_cube(self, name, alpha, delta, freq, ang_res, ang_fov, spe_res, spe_bw):
+    def gen_cube(self, name, freq, spe_res, spe_bw):
         """
         Returns a SpectralCube object where all the sources within the FOV and BW are projected.
 
         This function needs the following parameters:
         - name    : name of the cube
-        - alpha   : right-ascension center
-        - delta   : declination center
         - freq    : spectral center (frequency)
-        - ang_res : angular resolution
-        - ang_fov : angular field of view
         - spe_res : spectral resolution
         - spe_bw  : spectral bandwidth
         """
-        cube = SpectralCube(self.log, name, alpha, delta, freq, ang_res, ang_fov, spe_res, spe_bw)
+        cube = SpectralCube(self.log, name, freq, spe_res, spe_bw)
         for src in self.sources:
             self.sources[src].project(cube)
         return cube
@@ -110,17 +106,12 @@ class Source:
     A generic source of electromagnetic waves with several components.
     """
 
-    def __init__(self, log, name, alpha, delta):
+    def __init__(self, log, name):
         """ Parameters:
                * log: logging descriptor
                * name: a name of the source
-               * alpha: right ascension
-               * delta: declination
         """
         self.log = log
-        # log.write('+++ Source \'' + name + '\' added\n')
-        self.alpha = alpha
-        self.delta = delta
         self.name = name
         self.comp = list()
 
@@ -129,7 +120,7 @@ class Source:
         """
         code = self.name + '-c' + str(len(self.comp) + 1)  #+ '-r' + str(self.alpha) +'-d'+str(self.delta)
         self.comp.append(model)
-        model.register(code, self.alpha, self.delta)
+        model.register(code)
 
 
     def project(self, cube):
@@ -146,16 +137,12 @@ class SpectralCube:
     A synthetic spectral cube.
     """
 
-    def __init__(self, log, name, alpha, delta, freq, ang_res, ang_fov, spe_res, spe_bw):
+    def __init__(self, log, name, freq, spe_res, spe_bw):
         """
         Obligatory Parameters:
         - log	  : descriptor of a log file
         - name    : name of the cube
-        - alpha   : right-ascension center
-        - delta   : declination center
         - freq    : spectral center (frequency)
-        - ang_res : angular resolution
-        - ang_fov : angular field of view
         - spe_res : spectral resolution
         - spe_bw  : spectral bandwidth
 
@@ -164,19 +151,12 @@ class SpectralCube:
         """
         self.name = name
         self.freq = freq
-        self.ang_res = ang_res
-        self.ang_fov = ang_fov
         self.spe_res = spe_res
         self.spe_bw = spe_bw
-        # log.write('[*] Generating cube ' + name + '\n')
-        # log.write('  |- Angular Coordinates (deg): ra=' + str(alpha) + ' dec=' + str(delta) + '\n')
 
         self.freq_border = [freq - spe_bw / 2.0, freq + spe_bw / 2.0]
-
         self.channels = round(spe_bw / spe_res)
-
         self.freq_axis = np.linspace(self.freq_border[0], self.freq_border[1], self.channels)
-
         self.data = (
                         np.zeros(
                             (len(self.freq_axis))) )
@@ -242,11 +222,9 @@ class Component:
         self.rv = rvel
         self.z = math.sqrt((1 + self.rv * KILO / SPEED_OF_LIGHT) / (1 - self.rv * KILO / SPEED_OF_LIGHT)) - 1
 
-    def register(self, comp_name, alpha, delta):
-        """Register the component name and angular position (alpha,delta)"""
+    def register(self, comp_name):
+        """Register the component filename """
         self.comp_name = comp_name
-        self.alpha = alpha
-        self.delta = delta
 
     def project(self, cube):
         """Project the component in the cube"""
