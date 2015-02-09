@@ -8,7 +8,12 @@ SPEED_OF_LIGHT = 299792458.0
 def gaussian(x, mu, sig):
     return np.exp(-np.power(x - mu, 2.) / (2 * np.power(sig, 2.)))
 
-
+def fwhm2sigma(freq,fwhm):
+  """
+      Compute the sigma in MHz given a frequency in MHz and a fwhm in km/s
+      """
+  sigma = (fwhm * 1000 / S_FACTOR) * (freq / SPEED_OF_LIGHT)
+  return sigma
 
 def nearest_candidate(potential_line, candidate_list, threshold):
     candidate_distance = sys.maxint
