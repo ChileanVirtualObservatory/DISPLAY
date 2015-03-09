@@ -1,7 +1,9 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.12.30)  5 FEB 2015 21:41
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.12.30)  5 MAR 2015 13:14
 entering extended mode
 **draft-andres.tex
-(C:\Users\Andres\Repositories\ChiVO\DISPLAY\doc\paper\draft-andres.tex
+
+(C:\Users\Andres\Repositories\University\ChiVO\DISPLAY\doc\paper\draft-andres.t
+ex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -316,7 +318,9 @@ Class revtex4-1 Info: Robustifying \LaTeX's \boldmath command on input line 11.
 Class revtex4-1 Info: cite was not loaded (OK!) on input line 11.
 Class revtex4-1 Info: mcite was not loaded (OK!) on input line 11.
 Class revtex4-1 Info: multicol was not loaded (OK!) on input line 11.
-(C:\Users\Andres\Repositories\ChiVO\DISPLAY\doc\paper\draft-andres.aux)
+
+(C:\Users\Andres\Repositories\University\ChiVO\DISPLAY\doc\paper\draft-andres.a
+ux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 11.
@@ -329,8 +333,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
-
-("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count126
 \scratchdimen=\dimen126
@@ -366,27 +369,27 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <figs/fig2-2.pdf, id=3, 614.295pt x 794.97pt>
 No file draft-andres.bbl.
 [1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
-(C:\Users\Andres\Repositories\ChiVO\DISPLAY\doc\paper\draft-andres.aux) ) 
+(C:\Users\Andres\Repositories\University\ChiVO\DISPLAY\doc\paper\draft-andres.a
+ux) ) 
 Here is how much of TeX's memory you used:
  4687 strings out of 493921
- 59925 string characters out of 3144872
+ 60002 string characters out of 3144872
  140921 words of memory out of 3000000
  7934 multiletter control sequences out of 15000+200000
  8068 words of font info for 33 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  34i,5n,28p,1426b,324s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Pr
-ogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Pro
-gram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Progra
-m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Program Fi
-les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files 
-(x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files (x86
-)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program Files (x86)/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files (x86)/MiKT
-eX 2.9/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Program Files (x86)/MiKTeX 
-2.9/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Program Files (x86)/MiKTeX 2.9
-/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on draft-andres.pdf (2 pages, 127940 bytes).
+<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.
+pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb
+><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:
+/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Pro
+gram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program
+ Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program Fil
+es (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files
+ (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Program Files (x
+86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Program Files (x86)
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on draft-andres.pdf (2 pages, 127539 bytes).
 PDF statistics:
  52 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

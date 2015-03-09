@@ -1,6 +1,8 @@
 from asidopy import *
 import math
 import sys
+
+import numpy as np
 import pandas as pd
 
 # Without redshift (Rvel = 0)
@@ -50,11 +52,9 @@ if __name__ != "create_words":
 
                 lines = univ.gen_cube('observerd', freq, spe_res, spe_bw)
 
-                freq = np.arange(freq - int(spe_bw/2),freq + int(spe_bw/2),spe_res)
-                values = lines.get_spectrum()
+                dictionary[iso] = lines.get_spectrum()
 
-                dictionary[iso] = values
-                dictionary.index = freq
+        dictionary.index = np.arange(freq - int(spe_bw/2),freq + int(spe_bw/2), spe_res)
 
         # range = str(int((freq - spe_bw/2.0)/1000.0)) + " - " + str(int((freq + spe_bw/2.0)/1000.0))
         # dictionary.T.to_csv("dictionary/" + range + ".csv")

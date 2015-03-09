@@ -5,6 +5,7 @@ import pickle
 import display.create_cube
 import display.create_words
 import display.detect
+import spams
 
 def save_dictionary(D):
   output = open('dictionary.pkl', 'wb')
@@ -127,15 +128,48 @@ cube_params = {
 #         - s_f     : the width of the spectral lines (fwhm)
 # Returns a DataFrame with a vector for each theoretical line for each isotope
 # in molist
-# D = display.create_words.gen_words(molist, cube_params)
+# dictionary = display.create_words.gen_words(molist, cube_params)
 # save_dictionary(D)
-D = load_dictionary()
+dictionary = load_dictionary()
 
 file_path = cube_name + '.fits'
-X = display.detect.detect_lines(cube_params, file_path)
+D, X = display.detect.main(cube_params, file_path, dictionary)
+
+y = np.asfortranarray(np.asmatrix(X[(1L, 1L)]))
+y = np.asfortranarray(y.T, dtype= np.double)
+Dictionary = np.asfortranarray(D, dtype= np.double)
+
+param = {
+  'lambda1' : 1000, # not more than 20 non-zeros coefficients
+  # 'lambda2' : 0.1,
+  # 'L': 1,
+  'pos' : True,
+  'mode' : 0,
+  'ols' : True,
+  'numThreads' : -1} # number of processors/cores to use; the default choice is -1
+# and uses all the cores of the machine
+alpha = spams.lasso(y, Dictionary, **param)
+
+alpha = alpha.toarray()
+
+for p in xrange(0, len(alpha)):
+  print dictionary.columns[p] + ": " +  str(alpha[p])
+
+  # for i in range(0,len(words)):
+  #    print str(sys.argv[1] == words[i]) + " " + words[i] + " " + str(alpha[i])
+
+total = np.inner(D, alpha.T)
+
+f, axarr = plt.subplots(1, 1)
+# axarr.plot(dictionary[0,:])
 
 
+plt.plot(y, color='r', label='Observed')
+plt.plot(total, color='b', label='Recovered')
 
+plt.legend(loc='upper right')
+
+plt.show()
 
 
 
