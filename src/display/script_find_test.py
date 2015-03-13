@@ -135,7 +135,7 @@ for freq_iteration in range(0, 1):
         #On the Band 9 (602 - 720 Ghz),
         # a sample of 4 Ghz with resolution 1 Mhz:
         # Sample: [602 - 606]
-        freq = 604000 + 4000*freq_iteration
+        freq = 661000 + 4000*freq_iteration
         spe_bw= 4000
         spe_res= 1
         cube = univ.gen_cube('observerd', alpha, delta, freq, 10, 20, spe_res, spe_bw)
@@ -149,4 +149,3 @@ for freq_iteration in range(0, 1):
 
         # range = str(int((freq - spe_bw/2.0)/1000.0)) + " - " + str(int((freq + spe_bw/2.0)/1000.0))
         # univ.save_cube(cube,'observed/' + str(Comb) + ' [' + range + '].fits')
-

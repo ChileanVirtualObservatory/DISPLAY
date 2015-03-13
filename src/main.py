@@ -8,15 +8,20 @@ import display.detect
 import spams
 
 def save_dictionary(D):
-  output = open('dictionary.pkl', 'wb')
-  pickle.dump(D, output)
-  output.close()
+    output = open('dictionary.pkl', 'wb')
+    pickle.dump(D, output)
+    output.close()
 
 def load_dictionary():
-  input_file = open('dictionary.pkl', "rb" )
-  D = pickle.load( input_file )
-  input_file.close()
-  return D
+    input_file = open('dictionary.pkl', "rb" )
+    D = pickle.load( input_file )
+    input_file.close()
+    return D
+
+def get_fortran_array(input):
+    fort_array = np.asfortranarray(np.asmatrix(input)).T
+    fort_array = np.asfortranarray(fort_array, dtype= np.double)
+    return fort_array
 
 # Dictionary of molecules and its respective isotopes.
 molist = {
@@ -100,6 +105,7 @@ molist = {
 
 isolist = set(['HC15Nv=0', 'H13CNv2=1', 'H13CNv=0'])
 cube_name = 'observed_cube'
+cube_name_without_noise = 'observed_cube_without_noise'
 #         Creation of a Data cube that needs the following parameters:
 #
 #         - freq    : spectral center (frequency)
@@ -117,7 +123,8 @@ cube_params = {
   's_f'      : 85
               }
 # display.create_cube.gen_cube(isolist, cube_params, cube_name)
-
+# display.create_cube.gen_cube(isolist, cube_params, cube_name_without_noise,
+#                             white_noise=False)
 
 # Function to create the words necessary to fit a sparse coding model
 # to the observed spectra in the previous created cube. It uses:
@@ -133,14 +140,18 @@ cube_params = {
 dictionary = load_dictionary()
 
 file_path = cube_name + '.fits'
-D, X = display.detect.main(cube_params, file_path, dictionary)
+file_path_without_noise = cube_name_without_noise + '.fits'
+D, X = display.detect.main(cube_params, file_path, file_path_without_noise, dictionary)
 
-y = np.asfortranarray(np.asmatrix(X[(1L, 1L)]))
-y = np.asfortranarray(y.T, dtype= np.double)
+y_train = get_fortran_array(np.asmatrix(X[(1, 1)]))
+
+test_index_cubes = [(i, j) for i in range(2,7) for j in range(2,4)]
+y_test = [get_fortran_array(X[(index)].T) for index in test_index_cubes]
+
 Dictionary = np.asfortranarray(D, dtype= np.double)
 
 param = {
-  'lambda1' : 1000, # not more than 20 non-zeros coefficients
+  'lambda1' : 1000, # practically unrestricted
   # 'lambda2' : 0.1,
   # 'L': 1,
   'pos' : True,
@@ -148,12 +159,16 @@ param = {
   'ols' : True,
   'numThreads' : -1} # number of processors/cores to use; the default choice is -1
 # and uses all the cores of the machine
-alpha = spams.lasso(y, Dictionary, **param)
+alpha = spams.lasso(y_train, Dictionary, **param)
 
 alpha = alpha.toarray()
 
 for p in xrange(0, len(alpha)):
-  print dictionary.columns[p] + ": " +  str(alpha[p])
+    if dictionary.columns[p] in isolist:
+        print "*" + dictionary.columns[p] + ": " +  str(alpha[p])
+    else:
+        print dictionary.columns[p] + ": " +  str(alpha[p])
+
 
   # for i in range(0,len(words)):
   #    print str(sys.argv[1] == words[i]) + " " + words[i] + " " + str(alpha[i])
@@ -164,18 +179,9 @@ f, axarr = plt.subplots(1, 1)
 # axarr.plot(dictionary[0,:])
 
 
-plt.plot(y, color='r', label='Observed')
+plt.plot(y_train, color='r', label='Observed')
 plt.plot(total, color='b', label='Recovered')
 
 plt.legend(loc='upper right')
 
 plt.show()
-
-
-
-
-
-
-
-
-

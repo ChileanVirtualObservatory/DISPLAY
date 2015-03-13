@@ -262,7 +262,7 @@ class Universe:
         """
         self.sources[source_name].add_component(model)
 
-    def gen_cube(self, name, alpha, delta, freq, ang_res, ang_fov, spe_res, spe_bw, white_noise=True):
+    def gen_cube(self, name, alpha, delta, freq, ang_res, ang_fov, spe_res, spe_bw, white_noise):
         """
         Returns a SpectralCube object where all the sources within the FOV and BW are projected.
 
@@ -276,7 +276,7 @@ class Universe:
         - spe_res : spectral resolution
         - spe_bw  : spectral bandwidth
         """
-        cube = SpectralCube(self.log, name, alpha, delta, freq, ang_res, ang_fov, spe_res, spe_bw, white_noise=white_noise)
+        cube = SpectralCube(self.log, name, alpha, delta, freq, ang_res, ang_fov, spe_res, spe_bw, white_noise)
         for src in self.sources:
             self.log.write('*** Source: ' + src + '\n')
             self.sources[src].project(cube)
@@ -339,8 +339,8 @@ class SpectralCube:
     A synthetic spectral cube.
     """
 
-    def __init__(self, log, name, alpha, delta, freq, ang_res, ang_fov, spe_res, spe_bw, band_freq=ALMA_bands,
-                 band_noises=ALMA_noises, white_noise=True):
+    def __init__(self, log, name, alpha, delta, freq, ang_res, ang_fov, spe_res, spe_bw, white_noise, band_freq=ALMA_bands,
+                 band_noises=ALMA_noises):
         """
         Obligatory Parameters:
         - log	  : descriptor of a log file
@@ -401,15 +401,16 @@ class SpectralCube:
         else:
             self.noise = band_noises[self.band]
 
-
-        self.data = np.zeros(
-                            (len(self.freq_axis), len(self.delta_axis), len(self.alpha_axis))
-                    )
         if self.white_noise:
             self.data = (
                             np.random.random(
                                 (len(self.freq_axis), len(self.delta_axis), len(self.alpha_axis))) - 0.5 * np.ones(
                                 (len(self.freq_axis), len(self.delta_axis), len(self.alpha_axis)))) * 2 * self.noise * 0.01
+        else:
+            self.data = np.zeros(
+                                (len(self.freq_axis),
+                                 len(self.delta_axis),
+                                  len(self.alpha_axis)))
         self.hdulist = fits.HDUList([self._get_cube_HDU()])
 
 
@@ -562,16 +563,17 @@ class IMCM(Component):
                 freq = (1 + self.z) * lin[3]  # Catalogs must be in Mhz
                 self.log.write('      |- Projecting ' + str(lin[2]) + ' (' + str(lin[1]) + ') around ' + str(
                     freq) + ' Mhz, at ' + str(temp) + ' K\n')
-                for xp in range(xbord[0] + 1, xbord[1]):
-                    for yp in range(ybord[0] + 1, ybord[1]):
+                for xp in range(xbord[0], xbord[1]):
+                    for yp in range(ybord[0], ybord[1]):
                         freq = freq_correct(lin[3],self.rv + G[yp - ybord[0], xp - xbord[0]])
                         L, Lbord = gen_line(self.spe_form, freq, cube.freq_axis)
                         if isinstance(L, bool):
                             continue
-                        # Leave the pixel (x=0,y=0) empty to determinate the noise of the cube
-                        if yp != 0.0 or xp != 0.0:
-                            cube.data[Lbord[0]:Lbord[1] + 1, yp, xp] +=  T[yp - ybord[0], xp - xbord[0]] * temp* L
+                        if (xp == 0 and yp == 0):
+                            continue
+                        cube.data[Lbord[0]:Lbord[1] + 1, yp, xp] +=  T[yp - ybord[0], xp - xbord[0]] * temp* L
                         used = True
+
 
                 arr_code.append(self.comp_name + '-r' + str(self.alpha) + '-d' + str(self.delta) + "-l" + str(counter))
                 arr_mol.append(mol)
@@ -598,6 +600,3 @@ class IMCM(Component):
         cube._add_HDU(hduT)
         cube._add_HDU(hduG)
         cube._add_HDU(tbhdu)
-
-
-
