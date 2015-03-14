@@ -12,6 +12,11 @@ from sklearn.preprocessing import scale
 
 import sys
 
+def get_data_from_fits(file_path):
+    hdu_list = fits.open(file_path)
+    data = np.array(hdu_list[0].data)
+    hdu_list.close()
+    return data
 
 if __name__ != "detect":
 
@@ -21,11 +26,9 @@ if __name__ != "detect":
         def detect_lines(cube_params, file_path):
 
             # Reading cube data
-            hdu_list = fits.open(file_path)
-            data = hdu_list[0].data
+            data = get_data_from_fits(file_path)
             cube_rows = data.shape[1]
             cube_cols = data.shape[2]
-            hdu_list.close()
 
             # Extracting cube params
             s_f = cube_params['s_f']
@@ -41,11 +44,9 @@ if __name__ != "detect":
                 win_len -= 1
 
             # Reading denoise cube for testing purposes
-            observed_lines = pd.DataFrame([])
-            hdu_list = fits.open(file_path_without_noise)
-            data_without_noise = hdu_list[0].data
-            hdu_list.close()
+            data_without_noise = get_data_from_fits(file_path_without_noise)
 
+            observed_lines = pd.DataFrame([])
 
             for xi in xrange(0, cube_rows):
                 for yi in xrange(0, cube_cols):
@@ -71,9 +72,6 @@ if __name__ != "detect":
                     # Apllying a Savitzky-Golay first derivative
                     # seven-point averaging algorithm is applied to the raw dataset
                     values_denoised = savgol_filter(values, win_len, poli_order)
-                    # Normalization. Each sample is divided across by the
-                    # maximum intensity that occurs within that sample.
-                    # values_denoised /= abs(values_denoised).max()
 
                     # Delta of temperature to detect a peak candidate
                     scan_sensibity = 3*std_noise
@@ -89,9 +87,9 @@ if __name__ != "detect":
                         plt.legend(loc='upper right')
 
 
-                    while len(maxtab) > 0:
-                    # for max_line_temp in maxtab[:,1]:
-                        max_line_temp = max(maxtab[:,1])
+                    # while len(maxtab) > 0:
+                    for max_line_temp in maxtab[:,1]:
+                        # max_line_temp = max(maxtab[:,1])
 
                         if max_line_temp > mean_noise + scan_sensibity:
 
@@ -101,17 +99,17 @@ if __name__ != "detect":
                             if xi == 1 and yi == 1:
                                 plt.plot(max_line_freq, max_line_temp, 'bs', label='Maxima')
 
-                            gaussian_fitted = (max_line_temp)*\
-                                           utils.utils.gaussian(
-                                               np.arange(0, spe_bw, spe_res),
-                                                                max_line_freq, s_f)
+                            # gaussian_fitted = (max_line_temp)*\
+                            #                utils.utils.gaussian(
+                            #                    np.arange(0, spe_bw, spe_res),
+                            #                                     max_line_freq, s_f)
 
-                            for i in xrange(0, len(values_denoised)):  # TO DO: Bad python
-                             values_denoised[i] = max(values_denoised[i] - gaussian_fitted[i], mean_noise)
+                            # for i in xrange(0, len(values_denoised)):  # TO DO: Bad python
+                            #     values_denoised[i] = max(values_denoised[i] - gaussian_fitted[i], mean_noise)
 
-                            observed_mol[int(max_line_freq), ] = 1
+                            observed_mol[int(max_line_freq)] = 1
 
-                            maxtab, mintab = utils.peakdet.peakdet(values_denoised,scan_sensibity)
+                            # maxtab, mintab = utils.peakdet.peakdet(values_denoised,scan_sensibity)
 
                         # else:
                         #     break
@@ -124,50 +122,58 @@ if __name__ != "detect":
 
             return observed_lines
 
-        def near_word_distance(freq_detected, word, s_f):
-            if np.mean(word) == 0:
-              return 0
-
-            min_distance = 1
-            for freq_word in word.index:
-
-                if word[freq_word] != 0:
-
-                    distance = utils.utils.gaussian(freq_word, freq_detected, s_f)
-
-                    if min_distance > distance:
-                        min_distance = distance
-
-            return 1 - min_distance
-
-        def recalculate_words(words, X_detected, s_f):
-
+        def near_obs_prob(freq_theo, X_detected, s_f):
             # Pixel of the cube to train the algorithm
-            default_pixel_trainer = (1L, 1L)
+            default_pixel_trainer = (1, 1)
 
-            words_recalculated = pd.DataFrame(np.zeros(words.shape))
-            words_recalculated.index = words.index
-            words_recalculated.columns = words.columns
+            max_prob = 0
+            for freq_obs in X_detected.index:
 
-            for freq_detected in X_detected.index:
-                # If the observed spectra has a observed line
-                # The theoretical words must have lines in the window
+                if X_detected[default_pixel_trainer].loc[freq_obs] != 0:
+
+                    prob = utils.utils.gaussian(freq_theo, freq_obs, (s_f))
+                    if prob == 1:
+                        return [prob, freq_obs]
+                    elif max_prob < prob:
+                        max_prob = prob
+                        freq_max_prob = freq_obs
+            return [max_prob, freq_max_prob]
+
+        def recal_words(words, X_detected, s_f):
+
+            words_recal = pd.DataFrame(np.zeros(words.shape))
+            words_recal.index = words.index
+            words_recal.columns = words.columns
+
+            for mol in words.columns:
+                # Auxiliar array that holds modified observed frequencies
+                changed_prob_freqs = np.array([])
+
+                # The word must have theoretical lines in the window
+                if np.mean(words[mol]) == 0:
+                    continue
+
                 # Then, those lines in certain frequencies will be reeplaced
-                # by the distance of the theoretical line to the nearest
+                # by the probability of the theoretical line to the nearest
                 # observed line (Gaussian decay distance)
-                if X_detected[default_pixel_trainer].loc[freq_detected] != 0:
+                for freq_theo in words[mol].index:
+                    if words[mol].loc[freq_theo] != 0:
 
-                      for mol in words.columns:
-                          words_recalculated[mol].loc[freq_detected] = near_word_distance \
-                                          (
-                                            freq_detected,
-                                            words[mol],
-                                            s_f
-                                          )
-            return words_recalculated
+                        max_prob, freq_obs = near_obs_prob(freq_theo, X_detected,
+                                                                s_f)
+                        # In order to reeplace the highest probability for each
+                        # observed frecuency, we save the freq that had been
+                        # reeplaced already.
+
+                        if freq_obs not in changed_prob_freqs:
+                            words_recal[mol].loc[freq_obs] = max_prob
+                            np.append(changed_prob_freqs, freq_obs)
+                        elif max_prob > words_recal[mol].loc[freq_obs]:
+                            words_recal[mol].loc[freq_obs] = max_prob
+            return words_recal
 
 
         X_detected = detect_lines(cube_params, file_path)
-        words_recalculated = recalculate_words(words, X_detected, cube_params['s_f'])
+        words_recal = recal_words(words, X_detected, cube_params['s_f'])
         # return words, X_detected
-        return words_recalculated, X_detected
+        return words_recal, X_detected

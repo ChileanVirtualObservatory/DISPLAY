@@ -65,8 +65,8 @@ molist = {
             'HC5N' : ('HC5Nv=0', 'HC5Nv11=1', 'HCC13CCCN', 'HCCCC13CN',
                       'HCCC13CCN', 'H13CCCCCN', 'HC13CCCCN'), # Cyanobutadiyne
 
-            'CH3OH' : ('CH3OHvt=0', '13CH3OHvt=0', 'CH318OH', 'CH3OHvt=1',
-                       '13CH3OHvt=1') # Methanol
+            'CH3OH' : ('CH3OHvt=0', '13CH3OHvt=0 ', 'CH318OH', 'CH3OHvt=1 ',
+                       '13CH3OHvt=1 ') # Methanol
           }
 
 # if __name__ == "__main__":
@@ -89,9 +89,6 @@ molist = {
 #       OS17O
 #       H2C18O
 #       H213CO
-#       13CH3OHvt=0
-#       CH3OHvt=1
-#       13CH3OHvt=1
 #
 
 
@@ -103,7 +100,8 @@ molist = {
 #         - cube_params : parameters for the simulation of the cube
 
 
-isolist = set(['HC15Nv=0', 'H13CNv2=1', 'H13CNv=0'])
+isolist = set(['HC15Nv=0', 'H13CNv2=1', 'H13CNv=0', 'H213CS',
+               '33SO2', '34SO2v=0','SO2v2=1','OS18O','OS17O','H2C18O', 'H213CO'])
 cube_name = 'observed_cube'
 cube_name_without_noise = 'observed_cube_without_noise'
 #         Creation of a Data cube that needs the following parameters:
@@ -122,21 +120,16 @@ cube_params = {
   'spe_res'  : 1,
   's_f'      : 85
               }
-# display.create_cube.gen_cube(isolist, cube_params, cube_name)
+# display.create_cube.gen_cube(isolist, cube_params, cube_name, white_noise=True)
 # display.create_cube.gen_cube(isolist, cube_params, cube_name_without_noise,
-#                             white_noise=False)
+#                       white_noise=False)
 
 # Function to create the words necessary to fit a sparse coding model
 # to the observed spectra in the previous created cube. It uses:
-#
-#         - freq    : spectral center (frequency)
-#         - spe_res : spectral resolution
-#         - spe_bw  : spectral bandwidth
-#         - s_f     : the width of the spectral lines (fwhm)
 # Returns a DataFrame with a vector for each theoretical line for each isotope
 # in molist
 # dictionary = display.create_words.gen_words(molist, cube_params)
-# save_dictionary(D)
+# save_dictionary(dictionary)
 dictionary = load_dictionary()
 
 file_path = cube_name + '.fits'
@@ -151,7 +144,7 @@ y_test = [get_fortran_array(X[(index)].T) for index in test_index_cubes]
 Dictionary = np.asfortranarray(D, dtype= np.double)
 
 param = {
-  'lambda1' : 1000, # practically unrestricted
+  'lambda1' : 1, # practically unrestricted = 1000
   # 'lambda2' : 0.1,
   # 'L': 1,
   'pos' : True,
@@ -170,17 +163,12 @@ for p in xrange(0, len(alpha)):
         print dictionary.columns[p] + ": " +  str(alpha[p])
 
 
-  # for i in range(0,len(words)):
-  #    print str(sys.argv[1] == words[i]) + " " + words[i] + " " + str(alpha[i])
-
 total = np.inner(D, alpha.T)
 
 f, axarr = plt.subplots(1, 1)
-# axarr.plot(dictionary[0,:])
-
 
 plt.plot(y_train, color='r', label='Observed')
-plt.plot(total, color='b', label='Recovered')
+plt.plot(total, color='b', label='Recovered', linestyle='--')
 
 plt.legend(loc='upper right')
 
