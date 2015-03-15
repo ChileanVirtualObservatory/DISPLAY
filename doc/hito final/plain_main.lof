@@ -1,3 +1,10 @@
 \select@language {spanish}
 \contentsline {figure}{\numberline {1}{\ignorespaces Cubo de datos de ALMA, con dos dimensiones espaciales y una dimensi\IeC {\'o}n de frecuencia.}}{7}{figure.1}
 \contentsline {figure}{\numberline {2}{\ignorespaces Se desea recuperar la lista de mol\IeC {\'e}culas con la que se simul\IeC {\'o} el espectrograma. }}{14}{figure.2}
+\contentsline {figure}{\numberline {3}{\ignorespaces Espectro al situarse en un p\IeC {\'\i }xel espacial en particular. }}{15}{figure.3}
+\contentsline {figure}{\numberline {4}{\ignorespaces Espectro al reducir el ruido con un filtro de Savitzky-Golay. }}{15}{figure.4}
+\contentsline {figure}{\numberline {5}{\ignorespaces Puntos m\IeC {\'a}ximos locales por sobre el par\IeC {\'a}metro de sensibilidad. }}{16}{figure.5}
+\contentsline {figure}{\numberline {6}{\ignorespaces Gr\IeC {\'a}fico del vector observado con valores no nulos en los puntos detectados. }}{16}{figure.6}
+\contentsline {figure}{\numberline {7}{\ignorespaces Rn la figura \ref {subfig:fig6-1} se grafica una palabra te\IeC {\'o}rica y en la \ref {fig6-2} su equivalente recalculado}}{18}{figure.7}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Figura 6.1.}}}{18}{figure.7}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Figura 6.2.}}}{18}{figure.7}
