@@ -1,0 +1,26 @@
+\section{Definición del Problema}
+
+En una etapa inicial, se efectuaron una serie de reuniones administrativas con el conjunto de universidades que colaboran en el proyecto ChiVO. En estas reuniones se buscaba establecer como abordar y en qué se centraría cada universidad. El objetivo era desarrollar herramientas para los astrónomos que fueran útiles e innovadoras, y que utilizaran los datos que estarán disponibles a partir de ALMA.
+
+Así surgió la idea de desarrollar herramientas que aplicaran técnicas de minería de datos. Con los astrónomos involucrados en el proyecto fue posible realizar una propuesta de un problema astronómico. Cada proyecto de las universidades involucradas resolvería dicho problema con un enfoque diferente.
+
+La información que el radio-telescopio ALMA entregará consiste en cubos de datos con dos dimensiones espaciales y una dimensión de longitud de onda. En cada par espacial se mide el brillo de temperatura para un rango de longitudes de onda, o su equivalente en una frecuencia determinada.
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=140mm]{images/fig1}
+		\caption{Cubo de datos de ALMA, con dos dimensiones espaciales y una dimensión de frecuencia.}
+	\end{center}
+\end{figure}
+
+Producto de la radiación que emiten los objetos estelares, y de su interacción con la materia, se generan líneas de emisión. Esta líneas de emisión son caracteríaticas para ciertos niveles de energía de las moléculas que conforman los objetos astronómicos. La detección de las líneas de emisión y posterior asociación con las moléculas que las originan, permite conocer la composición de los objetos estelares.
+
+La combinación de estas líneas de emisión para cada objeto permite obtener una huella digital de este, única, dadas sus características internas y diferentes factores como la temperatura del objeto, la velocidad con la que viaja por el espacio, etc.
+
+Con esta información, se contaría con una gran cantidad de líneas espectrales, por lo que surge la idea de detectar dichas líneas espectrales como un problema astronómico de interés para aplicar técnicas de minería de datos.
+
+Por el lado de la minería de datos, se contará con suficientes datos para técnicas y desarrollar un algoritmo de identificación automática. Por parte de los astrónomos, se podrá contar con una herramienta que automatice la identificación de líneas de emisión en espectrogramas pertenecientes a objetos astronómicos.
+
+Cabe destacar que el objetivo del algoritmo es que apoye la rigurosidad de una clasificación hecha por un experto, al servir como preprocesamiento inicial para que este clasifique sus líneas, por lo que no busca reemplazar totalmente la labor del experto, y se espera un márgen de error para ciertos casos identificables.
+
+Luego de definir el problema, era necesario determinar un set de datos con el cual comenzar a desarrollar el algoritmo. Dada la cantidad necesaria de espectros para desarrollar un modelo predictivo, y como actualmente no se cuenta con mediciones suficientes del radio-telescopio, se optó por utilizar una simulación de espectros.

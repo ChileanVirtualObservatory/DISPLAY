@@ -1,0 +1,32 @@
+\section{Estado del Arte}
+La determinación de líneas espectrales según el método tradicional se limitaba al análisis manual de datos para encontrar parámetros moleculares que permitan asociar los peaks en las mediciones de los espectrogramas a moléculas en ciertos estados de energía.
+
+La falta de escalabilidad de técnicas que no automatizadas, y lo poco práctico que resultan dichos método para grandes cantidades de datos \cite{Schilke2001}, añadido a la dificultad a la hora de predecir nuevas coincidencias entre frecuencias y moléculas dada por las superposiciones de líneas, ha impulsado a los astrónomos a buscar la automatización de esta tarea.
+
+El problema de mezclas de líneas y superposiciones son producto de tanto ruido como la falta de sensibilidad  para distinguir entre dos líneas en frecuencias cercanas. Lo anterior también puede producir peaks dobles en ciertas líneas \cite{Cernicharo2013}.
+
+Un problema importante a la hora de identificar frecuencias subyace en líneas ópticamente delgadas, que tienden a dar resultados incorrectos. Usualmente, el uso de líneas de isotopos para su corrección resulta en un proceso costoso en tiempo y por lo mismo no es apto para datos masivos \cite{Schilke2001}.
+
+Nummelin et al. \cite{Nummelin1998} propone el uso de un ajuste manual de las líneas a una forma arbitraria dada por una gausiana, obteniendo por cada línea su frecuencia observada, el peak en el brillo de temperatura y el ancho de la velocidad (ancho total a media altura), para así proceder con la identificación de la línea al asociarla con una molécula en cierto estado de energía. 
+
+Para la identificación de líneas considerando las relaciones entre brillo de temperatura en un mismo espectro, es necesario asumir temperatura y origen homogéneo, dado que la diferencia de temperatura cambia la relación en serie de intensidades de líneas hiper-finas \cite{Nummelin2000}. 
+
+Esto es importante a la hora de utilizar datos simulados con el fin de representar fielmente las características físicas de las estructuras a utilizar para entrenar, de modo que el modelo sea posteriormente aplicable sin mayores variaciones al utilizar datos reales de ALMA.
+
+Es posible detectar patrones en las líneas que corresponden a la misma molécula e ispotropo a partir de intensidad relativa considerando que existe una razón entre diferencias de velocidad que es constante para un conjunto de líneas de emisión. Esto permite buscar patrones no tan solo de manera individual, sino que a través del análisis manual de series de líneas que se asocian a una misma molécula o átomo en sus diferentes estados energéticos. 
+
+Los esfuerzos para desarrollar una herramienta automática de detección de líneas actualmente apuntan a herramientas semi-automáticas que utilizan como base complejos modelos físicos y químicos para la clasificación de líneas. 
+
+XCLASS \footnote{\url{https://www.astro.uni-koeln.de/projects/schilke/XCLASS}}, 
+CASSIS \footnote{\url{http://cassis.cesr.fr}} y 
+WEEDS \footnote{\url{https://www.iram.fr/IRAMFR/GILDAS}} 
+son herramientas que apuntan a modelar la composición de los espectros de tal forma que las simulaciones se asemejen a lo observado, existiendo grandes esfuerzos en realizar dichos modelamientos para solo la identificación de líneas. \cite{Schilke2011}.
+
+Estas herramientas hacen uso de catálogos que contienen información sobre líneas espectroscópicas de moléculas y sus frecuencias teóricas de laboratorio, las que están disponibles públicamente en catálogos como (JPL \footnote{\url{http://spec.jpl.nasa.gov}}, 
+CDMS \footnote{\url{http://www.astro.uni-koeln.de/cdms}}, 
+Toyama \footnote{\url{http://www.sci.u-toyama.ac.jp/phys/4ken/atla}}) 
+\cite{Schilke2011}, los que han sido compilados en 
+Splatalogue \footnote{\url{http://www.splatalogue.net}} 
+\cite{Remijan2008, Remijan2010}.
+
+Las técnicas anteriormente descritas no son escalables al no ser procesos automatizados y depender de análisis o ajustes manuales que con la inminente llegada de enormes cantidades de datos provenientes de instrumentos como ALMA, dejan de ser aplicables. Por esto es necesario buscar algoritmos de clasificación que deleguen la tarea de identificar y clasificar líneas espectrales.

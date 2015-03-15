@@ -1,0 +1,15 @@
+\section{Resumen Ejecutivo}
+
+Este proyecto se desarrolla en el marco del desarrollo de un proyecto colaborativo de varias universidades chilenas para la iniciativa del Observatorio Virtual Chileno (ChiVO). ChiVO es una plataforma en línea que pondrá a disposición de los astrónomos acceso a las mediciones del radio-telescopio Atacama Large Millimeter Array (ALMA). Además, proporcionará una serie de herramientas con las cuales podrán procesar y obtener información especializada de dichas mediciones de ALMA.
+
+El los datos que el radio-telescopio ALMA pondrá a disposición consisten en cubos de datos, en los cuales dos dimensiones son espaciales y una tercera dimensión corresponde a un rango de longitud de onda. Esto significa que se cuenta con una matriz tridimensional de la cual en cada par espacial, es posible obtener un espectrograma diferente.
+
+La Pontificia Universidad Católica de Chile (PUC) participa con el desarrollo de una herramienta de identificación de líneas espectrales utilizando técnicas de minería de datos. Esta herramienta consiste en un algoritmo que utiliza técnicas de sparse coding para obtener la probabilidad de que distintas combinaciones de moléculas que den origen a los espectrogramas observados.
+
+Dado que en la fase en la que se encuentra el proyecto no se cuenta con datos reales, se utilizarán datos simulados con las características de las futuras mediciones de ALMA. Para esto se utilizará el software de simulación ASYDO, desarrollado en conjunto con este proyecto como parte de las herramientas disponibles en el proyecto ChiVO.
+
+Con este conjunto simulado de espectros, se pretende identificar líneas espectrales a partir de un conjunto de moléculas con las cuales fueron simuladas dichos espectros. Se espera poder recuperar este conjunto de moléculas solo con el espectrograma observado. El resultado será una distribución de pertenencia de estas líneas espectroscópicas a diferentes configuraciones de moléculas.
+
+La particularidad del algoritmo de identificación propuesto radica en la incorporación del factor probabilista en la identificación de los espectros, al consistir el resultado del algoritmo en una probabilidad en vez de un resultado determinista. Además, la automatización de este proceso permitirá entregar a los astrónomos una herramienta con la cual obtener una primera aproximación a la solución de este problema.
+
+A lo largo del documento se detalla el estado del arte del problema, la metodología con la cual se espera resolver el problema, el enfoque con el que será abordado el problema, la especificación de requerimientos del algoritmo a desarrollar, se describirá el prototipo de la solución propuesta, con su diseño e implementación y la validación final.

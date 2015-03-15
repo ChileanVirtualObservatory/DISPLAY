@@ -1,0 +1,13 @@
+\section{Conclusiones}
+
+La técnica de sparse coding permitió identificar gran parte de las moléculas e incluso los isótopos presenten en las observaciones. Con esto fue posible dar una noción de cual es la composición molecular de los objetos astronómicos simulados.
+
+Los datos para entrenar el modelo no permitieron utilizar la altura de las líneas espectrales, dado que el simulador no respetaba las alturas relativas dentro de un mismo isótropo, asignandolas al azar. La limitante de no poder utilizar la altura de las líneas en las simulaciones fue solucionada al no utilizar esta característica de las líneas en el modelo predictivo. Al utilizar solo la frecuencia detectada y asignar a cada línea teórica un valor dependiendo de la distancia hacia la observada más cercana, se puede suavizar el match al tratar de asignar las molécula según el catálogo de frecuencias teóricas exactas.
+
+La principal dificultad del approach actual de la solución recae en que ciertas moléculas poseen una gran cantidad de líneas teóricas en ciertos intervalos de frecuencia. Al depender la palabra solo de la frecuencia observada, y no de su altura, se le asigna la misma importancia sin importar que tan seguro es que realmente existan o se trate de ruido.
+
+Por lo anterior, una extensión natural de este algoritmo será integrar la altura de las líneas cuando dicha información sea extraible de mediciones reales bien clasificadas. De este modo se podrá obtener una razón entre las alturas relativas entre isótropos, e integrarlo en la inicialización de las palabras por isótropo.
+
+Finalmente, la incorporación de esta información permitiría asignar una peso a preferencial que asigne más importancia las palabras asociadas a isótopos con mayores magnitudes de temperatura, lo que ayudaría a restar el efecto del ruido, al no ser consideradas actualmente presencias que estén muy cerca del parámetro de sensibilidad en la etapa de detección, o incluso, pudiendo detectar líneas bajo dicho umbral.
+
+

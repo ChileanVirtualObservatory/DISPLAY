@@ -1,0 +1,19 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: plain_main.aux
+The style file: alpha.bst
+Database file #1: report.bib
+Name 1 in "P. Schilke, J. Beneford, T. R. Hunter, D. C. Lis, and T. G. Phillips" has a comma at the end for entry Schilke2001
+while executing---line 1185 of file alpha.bst
+Too many commas in name 1 of "P. Schilke, J. Beneford, T. R. Hunter, D. C. Lis, and T. G. Phillips" for entry Schilke2001
+while executing---line 1185 of file alpha.bst
+Name 1 in "P. Schilke, J. Beneford, T. R. Hunter, D. C. Lis, and T. G. Phillips" has a comma at the end for entry Schilke2001
+while executing---line 1185 of file alpha.bst
+Too many commas in name 1 of "P. Schilke, J. Beneford, T. R. Hunter, D. C. Lis, and T. G. Phillips" for entry Schilke2001
+while executing---line 1185 of file alpha.bst
+Warning--empty booktitle in howley_effect_2005
+Name 1 in "P. Schilke, J. Beneford, T. R. Hunter, D. C. Lis, and T. G. Phillips" has a comma at the end for entry Schilke2001
+while executing---line 1250 of file alpha.bst
+Too many commas in name 1 of "P. Schilke, J. Beneford, T. R. Hunter, D. C. Lis, and T. G. Phillips" for entry Schilke2001
+while executing---line 1250 of file alpha.bst
+Warning--empty journal in Remijan2010
+Warning--empty journal in Remijan2008
+(There were 6 error messages)
