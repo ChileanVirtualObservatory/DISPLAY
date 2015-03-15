@@ -30,6 +30,8 @@ El objetivo del algoritmo es entonces recuperar la lista de moléculas con la cu
 
 \subsection{Implementación}
 
+El código de la implementación se encuentra disponible en el repositorio del proyecto de ChiVO en git. \footnote{\url{https://github.com/ChileanVirtualObservatory/DISPLAY}}
+
 \subsubsection{Etapa de Detección}
 
 El proceso de detección de líneas utiliza un parámetro de sensibilidad que determina si una medición es considerada una potencial línea espectroscópica. Esta sensibilidad depende de la desviación estándar del ruido en una región sin líneas visibles. Para obtener este parámetro se forzó a que en cada cubo, el pixel (0 , 0) no tuviese líneas espectrales, sino que solo ruido. Esto en la práctica se puede obtener seleccionando una región vacía del cubo de datos que el usuario previamente seleccione.
