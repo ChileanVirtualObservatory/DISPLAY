@@ -135,7 +135,7 @@ cube_params = {
   'spe_res'  : 1,
   's_f'      : 85
               }
-display.create_cube.gen_cube(isolist, cube_params, cube_name, white_noise=True)
+# display.create_cube.gen_cube(isolist, cube_params, cube_name, white_noise=True)
 # display.create_cube.gen_cube(isolist, cube_params, cube_name_without_noise,
 #                       white_noise=False)
 
@@ -182,3 +182,18 @@ plt.show()
 #
 # show_alphas_in_isolist(alpha, isolist)
 lines = Detector.get_lines_from_fits()
+
+print "Observed"
+for freq in range(cube_params['spe_bw']):
+    if np.mean(dictionary_recal.iloc[freq]) != 0:
+        print dictionary_recal.index[freq]
+        for mol_ix in range(len(dictionary_recal.columns)):
+            mol = dictionary_recal.columns[mol_ix]
+            if dictionary_recal[mol].iloc[freq] != 0 and alpha[mol_ix] != 0:
+                print mol + ": " + str(alpha[mol_ix])
+
+print "Simulated"
+for freq in lines.index:
+        for line in lines[freq]:
+          print freq
+          print line

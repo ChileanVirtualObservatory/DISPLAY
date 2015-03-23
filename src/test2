@@ -1,0 +1,13 @@
+print "Observed"
+for freq in range(0, len(dictionary_recal.index)):
+    if np.mean(dictionary_recal.iloc[freq]) != 0:
+        print dictionary_recal.index[freq]
+        for i in range (0, len(dictionary_recal.columns)):
+            if alpha[i] != 0:
+                print dictionary_recal.columns[i] + ": " + str(alpha[i])
+
+print "Simulated"
+for freq in lines.index:
+        for line in lines[freq]:
+          print freq
+          print line

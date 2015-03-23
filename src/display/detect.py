@@ -43,8 +43,8 @@ class Detect:
         self.spe_bw = cube_params["spe_bw"]
         self.spe_res = cube_params["spe_res"]
         self.s_f = cube_params["s_f"]
-        self.mean_noise, self.std_noise = get_noise_parameters_from_fits()
-        self.threshold = self.get_thresold_parameter(self)
+        self.mean_noise, self.std_noise = self.get_noise_parameters_from_fits()
+        self.threshold = self.get_thresold_parameter()
 
     def get_data_from_fits(self):
         hdu_list = fits.open(self.file_path)
@@ -65,22 +65,10 @@ class Detect:
                                             self.poli_order))
         return mean_noise, std_noise
 
-    def get_real_noise_parameters_from_fits(self):
-        win_len = self.get_win_len_from_s_f()
-
-        # The pixel (0, 0) always will be a empty pixel with noise
-        values_noise = self.get_data_from_fits()[:,0,0]
-        mean_noise = np.mean(values_noise)
-        std_noise = np.std(values_noise)
-        return mean_noise, std_noise
 
     def get_thresold_parameter(self):
-        mean_noise, std_noise = self.get_noise_parameters_from_fits()
-        return mean_noise + 3*std_noise
+        return self.mean_noise + 3*self.std_noise
 
-    def get_real_thresold_parameter(self):
-        mean_noise, std_noise = self.get_real_noise_parameters_from_fits()
-        return mean_noise + 3*std_noise
 
     def get_win_len_from_s_f(self):
 
@@ -97,59 +85,54 @@ class Detect:
                          self.freq + int(self.spe_bw/2),
                          self.spe_res)
 
-    def detect_lines(maxtab):
-        # Delta of temperature to detect a peak candidate
-        mean_noise = self.get_noise_parameters_from_fits()[0]
-        scan_sensibity = self.get_thresold_parameter()
+    def detect_lines_simple(self, maxtab, values_denoised):
 
         observed_lines = pd.Series(np.zeros([self.spe_bw]))
         for max_line_temp in maxtab[:,1]:
 
-            if max_line_temp > scan_sensibity:
+            if max_line_temp > self.threshold:
 
                 max_line_freq = maxtab[maxtab[:,1] == max_line_temp][:,0]
 
                 # Plot max point
-                plt.plot(max_line_freq, max_line_temp, 'bs', label='Maxima')
+                plt.plot(max_line_freq, max_line_temp, 'bs')
 
                 observed_lines.iloc[int(max_line_freq)] = 1
         return observed_lines
 
-    def detect_lines_subtracting_gaussians(maxtab):
-        # Delta of temperature to detect a peak candidate
-        mean_noise = self.get_noise_parameters_from_fits()[0]
-        scan_sensibity = self.get_thresold_parameter()
+    def detect_lines_subtracting_gaussians(self, maxtab, values_denoised):
 
         observed_lines = pd.Series(np.zeros([self.spe_bw]))
         while len(maxtab) > 0:
             max_line_temp = max(maxtab[:,1])
 
-            if max_line_temp > scan_sensibity:
+            if max_line_temp > self.threshold:
 
                 max_line_freq = maxtab[maxtab[:,1] == max_line_temp][:,0]
 
                 # Plot max point
-                plt.plot(max_line_freq, max_line_temp, 'bs', label='Maxima')
+                plt.plot(max_line_freq, max_line_temp, 'bs')
 
-                gaussian_fitted = (max_line_temp)*\
+                gauss_fitt = (max_line_temp)*\
                             gaussian(np.arange(0, self.spe_bw,  self.spe_res),
                                      max_line_freq,  self.s_f)
 
 
                 for i in xrange(0, len(values_denoised)):
-                    values_denoised[i] = max(values_denoised[i] - gaussian_fitted[i],
-                                             mean_noise)
+                    values_denoised[i] = max(values_denoised[i] - gauss_fitt[i],
+                                             self.mean_noise)
 
                 observed_lines.iloc[int(max_line_freq)] = 1
-                maxtab, mintab = utils.peakdet.peakdet(values_denoised,scan_sensibity)
+                maxtab, mintab = utils.peakdet.peakdet(values_denoised,
+                                                       self.threshold)
             else:
                 break
+        return observed_lines
 
     def get_lines_from_fits(self):
         lines = pd.Series([dict() for i in range(self.spe_bw)])
         lines.index = self.get_freq_index_from_params()
 
-        threshold = self.get_real_thresold_parameter()
         i = 3
         hdu_list = fits.open(self.file_path)
         while(i < len(hdu_list)):
@@ -186,18 +169,19 @@ class Detect:
 
         # Detecting
         #
-        # Array with max and min detected in the spectra
-        maxtab, mintab = utils.peakdet.peakdet(values_denoised, scan_sensibity)
-        observed_lines = get_lines_subtracting_gaussians(maxtab)
-        observed_lines.index = self.get_freq_index_from_params()
-
         # Plot detected max
         plt.plot(values, color='g', label='Observed')
         plt.xlabel('Relative Frequency [MHz]')
         plt.ylabel('Temperature [No unit]')
         # plt.plot(values_without_noise, color='y', label='Without Noise')
         plt.plot(values_denoised, color='r')#, label='Observed Denoised')
-        plt.legend(loc='upper right')
+        # plt.legend(loc='upper right')
+        # Array with max and min detected in the spectra
+        maxtab, mintab = utils.peakdet.peakdet(values_denoised, self.threshold)
+        observed_lines = self.detect_lines_subtracting_gaussians(maxtab, values_denoised)
+        observed_lines.index = self.get_freq_index_from_params()
+        plt.axhspan(0, self.threshold, facecolor='0.5')
+        plt.show()
 
         return observed_lines
 
