@@ -4,7 +4,9 @@ import matplotlib.pyplot as plt
 import pickle
 import display.create_cube
 import display.create_words
-import display.detect
+
+from display.detect import *
+
 import spams
 
 def save_dictionary(D):
@@ -22,6 +24,19 @@ def get_fortran_array(input):
     fort_array = np.asfortranarray(np.asmatrix(input)).T
     fort_array = np.asfortranarray(fort_array, dtype= np.double)
     return fort_array
+
+def show_alphas_in_isolist(alpha, isolist):
+    for p in xrange(0, len(alpha)):
+        if dictionary.columns[p] in isolist:
+            print "*" + dictionary.columns[p] + ": " +  str(alpha[p])
+        else:
+            print dictionary.columns[p] + ": " +  str(alpha[p])
+
+def show_words(dictionary, isolist):
+    for p in isolist:
+        plt.plot(dictionary[p])
+        plt.show()
+
 
 # Dictionary of molecules and its respective isotopes.
 molist = {
@@ -101,9 +116,9 @@ molist = {
 
 
 isolist = set(['HC15Nv=0', 'H13CNv2=1', 'H13CNv=0', 'H213CS',
-               '33SO2', '34SO2v=0','SO2v2=1','OS18O','OS17O','H2C18O', 'H213CO'])
+               '34SO2v=0','SO2v2=1','OS18O','OS17O','H2C18O', 'H213CO'])
 cube_name = 'observed_cube'
-cube_name_without_noise = 'observed_cube_without_noise'
+# cube_name_without_noise = 'observed_cube_without_noise'
 #         Creation of a Data cube that needs the following parameters:
 #
 #         - freq    : spectral center (frequency)
@@ -120,7 +135,7 @@ cube_params = {
   'spe_res'  : 1,
   's_f'      : 85
               }
-# display.create_cube.gen_cube(isolist, cube_params, cube_name, white_noise=True)
+display.create_cube.gen_cube(isolist, cube_params, cube_name, white_noise=True)
 # display.create_cube.gen_cube(isolist, cube_params, cube_name_without_noise,
 #                       white_noise=False)
 
@@ -132,44 +147,38 @@ cube_params = {
 # save_dictionary(dictionary)
 dictionary = load_dictionary()
 
+# Training
+#
+#
 file_path = cube_name + '.fits'
-file_path_without_noise = cube_name_without_noise + '.fits'
-D, X = display.detect.main(cube_params, file_path, file_path_without_noise, dictionary)
+# file_path_without_noise = cube_name_without_noise + '.fits'
+Detector = Detect(cube_params, file_path)
+dictionary_recal, X = Detector.train((1, 1), dictionary)
 
-y_train = get_fortran_array(np.asmatrix(X[(1, 1)]))
-
-test_index_cubes = [(i, j) for i in range(2,7) for j in range(2,4)]
-y_test = [get_fortran_array(X[(index)].T) for index in test_index_cubes]
-
-Dictionary = np.asfortranarray(D, dtype= np.double)
+y_train = get_fortran_array(np.asmatrix(X))
+dictionary_recal_fa = np.asfortranarray(dictionary_recal, dtype= np.double)
 
 param = {
-  'lambda1' : 1, # practically unrestricted = 1000
+  'lambda1' : 1000, # practically unrestricted = 1000
   # 'lambda2' : 0.1,
   # 'L': 1,
   'pos' : True,
   'mode' : 0,
   'ols' : True,
-  'numThreads' : -1} # number of processors/cores to use; the default choice is -1
+  'numThreads' : -1} # number of cores to use; the default choice is -1
 # and uses all the cores of the machine
-alpha = spams.lasso(y_train, Dictionary, **param)
+alpha = spams.lasso(y_train, dictionary_recal_fa, **param).toarray()
+total = np.inner(dictionary_recal_fa, alpha.T)
 
-alpha = alpha.toarray()
-
-for p in xrange(0, len(alpha)):
-    if dictionary.columns[p] in isolist:
-        print "*" + dictionary.columns[p] + ": " +  str(alpha[p])
-    else:
-        print dictionary.columns[p] + ": " +  str(alpha[p])
-
-
-total = np.inner(D, alpha.T)
-
-f, axarr = plt.subplots(1, 1)
+show_alphas_in_isolist(alpha, isolist)
 
 plt.plot(y_train, color='r', label='Observed')
 plt.plot(total, color='b', label='Recovered', linestyle='--')
-
 plt.legend(loc='upper right')
-
 plt.show()
+
+# Testing
+#
+#
+# show_alphas_in_isolist(alpha, isolist)
+lines = Detector.get_lines_from_fits()

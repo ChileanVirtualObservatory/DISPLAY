@@ -558,8 +558,8 @@ class IMCM(Component):
                 counter += 1
                 trans_temp = lin[5]
                 temp = np.exp(-abs(trans_temp - self.temp) / self.temp) * rinte
-                # if temp < 3 * cube.noise:
-                #     continue
+                if temp < 3 * cube.noise:
+                    continue
                 freq = (1 + self.z) * lin[3]  # Catalogs must be in Mhz
                 self.log.write('      |- Projecting ' + str(lin[2]) + ' (' + str(lin[1]) + ') around ' + str(
                     freq) + ' Mhz, at ' + str(temp) + ' K\n')
@@ -577,7 +577,7 @@ class IMCM(Component):
 
                 arr_code.append(self.comp_name + '-r' + str(self.alpha) + '-d' + str(self.delta) + "-l" + str(counter))
                 arr_mol.append(mol)
-                arr_temp.append(temp)
+                arr_temp.append(np.max(T[yp - ybord[0], xp - xbord[0]] * temp* L))
                 arr_chname.append(str(lin[2]))
                 arr_rest_freq.append(str(lin[3]))
                 arr_rad_vel.append(self.rv)

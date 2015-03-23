@@ -10,6 +10,11 @@ from scipy.signal import savgol_filter
 
 import sys
 
+# ## Helper constants ###
+SPEED_OF_LIGHT = 299792458.0
+S_FACTOR = 2.354820045031  # sqrt(8*ln2)
+KILO = 1000
+DEG2ARCSEC = 3600.0
 
 def gaussian(x, mu, sig):
     """
@@ -27,38 +32,55 @@ def fwhm2sigma(freq,fwhm):
 
 class Detect:
 
-    def __init__(self, file_path, cube_params):
+    def __init__(self, cube_params, file_path):
 
         # Parameter to reduce noise
         self.poli_order = 3
+        # Cube path
         self.file_path = file_path
-        self.freq = cube_params['freq']
-        self.spe_bw = cube_params['spe_bw']
-        self.spe_res = cube_params['spe_res']
-        self.s_f = cube_params['s_f']
+        # Cube parameters
+        self.freq = cube_params["freq"]
+        self.spe_bw = cube_params["spe_bw"]
+        self.spe_res = cube_params["spe_res"]
+        self.s_f = cube_params["s_f"]
 
-    def get_data_from_fits():
+    def get_data_from_fits(self):
         hdu_list = fits.open(self.file_path)
         data = np.array(hdu_list[0].data)
         hdu_list.close()
         return data
 
-    def get_noise_parameters_from_fits():
+    def get_noise_parameters_from_fits(self):
         win_len = self.get_win_len_from_s_f()
 
         # The pixel (0, 0) always will be a empty pixel with noise
-        values_noise = self.get_data_from_fits(self.file_path)[:,0,0]
+        values_noise = self.get_data_from_fits()[:,0,0]
         mean_noise = np.mean(savgol_filter(values_noise,
-                                            win_len, poli_order))
+                                            win_len,
+                                            self.poli_order))
         std_noise = np.std(savgol_filter(values_noise,
-                                            win_len, poli_order))
+                                            win_len,
+                                            self.poli_order))
         return mean_noise, std_noise
 
-    def get_thresold_parameter(file_path):
+    def get_real_noise_parameters_from_fits(self):
+        win_len = self.get_win_len_from_s_f()
+
+        # The pixel (0, 0) always will be a empty pixel with noise
+        values_noise = self.get_data_from_fits()[:,0,0]
+        mean_noise = np.mean(values_noise)
+        std_noise = np.std(values_noise)
+        return mean_noise, std_noise
+
+    def get_thresold_parameter(self):
         mean_noise, std_noise = self.get_noise_parameters_from_fits()
         return mean_noise + 3*std_noise
 
-    def get_win_len_from_s_f(cube_params):
+    def get_real_thresold_parameter(self):
+        mean_noise, std_noise = self.get_real_noise_parameters_from_fits()
+        return mean_noise + 3*std_noise
+
+    def get_win_len_from_s_f(self):
 
         # Calculating some other params
         sigma = fwhm2sigma(self.freq, self.s_f)
@@ -68,95 +90,97 @@ class Detect:
             win_len -= 1
         return win_len
 
-    def get_freq_index_from_params():
-        return np.arange(freq - int(self.spe_bw/2),
-                                         self.freq + int(self.spe_bw/2),
-                                         self.spe_res)
+    def get_freq_index_from_params(self):
+        return np.arange(self.freq - int(self.spe_bw/2),
+                         self.freq + int(self.spe_bw/2),
+                         self.spe_res)
 
-    def get_lines_from_fits():
-        lines = pd.Series(np.zeros([self.spe_bw]))
-        lines.index = get_freq_index_from_params()
+    def get_lines_from_fits(self):
+        lines = pd.Series([dict() for i in range(self.spe_bw)])
+        lines.index = self.get_freq_index_from_params()
 
-        threshold = get_thresold_parameter(self.file_path)
+        threshold = self.get_real_thresold_parameter()
         i = 3
         hdu_list = fits.open(self.file_path)
         while(i < len(hdu_list)):
             for line in hdu_list[i].data:
-                if line[6] > threshold:
-                    """
-                        line[1] : Formula
-                        line[3] : Frequency (MHz)
-                        line[6] : Temperature (No unit)
-                    """
-                    lines[line[1]].iloc[int(line[3])] = 1
-                i = i + 3
+                """
+                    line[1] : Formula
+                    line[3] : Frequency (MHz)
+                    line[6] : Temperature (No unit)
+                """
+                lines[int(line[3])][line[1]] = line[6]
+            i = i + 3
         hdu_list.close()
         return lines
 
-    def detect_lines(default_pixel):
+    def detect_lines(self, train_pixel):
         # Reading
         #
         # Reading cube data
-        data = get_data_from_fits(self.file_path)
+        data = self.get_data_from_fits()
 
         # Reading denoise cube for testing purposes
-        # data_without_noise = get_data_from_fits(file_path_without_noise)
+        # data_without_noise = get_data_without_noise_from_fits()
 
         # Pre-processing
         #
         # The training pixel values
         # values_without_noise = data_without_noise[:,xi,yi]
-        values = data[:,default_pixel['x'], default_pixel['y']]
+        values = data[:, train_pixel[0], train_pixel[1]]
 
         # Apllying a Savitzky-Golay first derivative
         # seven-point averaging algorithm is applied to the raw dataset
-        win_len = self.get_win_len_from_s_f(self.cube_params)
-        values_denoised = savgol_filter(values, win_len, poli_order)
+        win_len = self.get_win_len_from_s_f()
+        values_denoised = savgol_filter(values, win_len, self.poli_order)
 
         # Detecting
         #
         # Delta of temperature to detect a peak candidate
-        scan_sensibity = get_thresold_parameter(file_path)
+        mean_noise = self.get_noise_parameters_from_fits()[0]
+        scan_sensibity = self.get_thresold_parameter()
         # Array with max and min detected in the spectra
         maxtab, mintab = utils.peakdet.peakdet(values_denoised, scan_sensibity)
 
         # Plot detected max
-        # plt.plot(values, color='b', label='Observed')
-        # plt.xlabel('Relative Frequency [MHz]')
-        # plt.ylabel('Temperature [No unit]')
+        plt.plot(values, color='g', label='Observed')
+        plt.xlabel('Relative Frequency [MHz]')
+        plt.ylabel('Temperature [No unit]')
         # plt.plot(values_without_noise, color='y', label='Without Noise')
-        # plt.plot(values_denoised, color='r')#, label='Observed Denoised')
-        # plt.legend(loc='upper right')
+        plt.plot(values_denoised, color='r')#, label='Observed Denoised')
+        plt.legend(loc='upper right')
 
         observed_lines = pd.Series(np.zeros([self.spe_bw]))
-        # while len(maxtab) > 0:
-        for max_line_temp in maxtab[:,1]:
-            # max_line_temp = max(maxtab[:,1])
+        while len(maxtab) > 0:
+        # for max_line_temp in maxtab[:,1]:
+            max_line_temp = max(maxtab[:,1])
 
-            if max_line_temp > mean_noise + scan_sensibity:
+            if max_line_temp > scan_sensibity:
 
                 max_line_freq = maxtab[maxtab[:,1] == max_line_temp][:,0]
 
                 # Plot max point
-                # plt.plot(max_line_freq, max_line_temp, 'bs', label='Maxima')
+                plt.plot(max_line_freq, max_line_temp, 'bs', label='Maxima')
 
-                # gaussian_fitted = (max_line_temp)*\
-                #                gaussian(
-                #                    np.arange(0, spe_bw, spe_res),
-                #                                     max_line_freq, s_f)
+                gaussian_fitted = (max_line_temp)*\
+                            gaussian(np.arange(0, self.spe_bw,  self.spe_res),
+                                     max_line_freq,  self.s_f)
 
-                # for i in xrange(0, len(values_denoised)):  # TO DO: Bad python
-                #     values_denoised[i] = max(values_denoised[i] - gaussian_fitted[i], mean_noise)
+
+                for i in xrange(0, len(values_denoised)):
+                    values_denoised[i] = max(values_denoised[i] - gaussian_fitted[i],
+                                             mean_noise)
 
                 observed_lines.iloc[int(max_line_freq)] = 1
-                # maxtab, mintab = utils.peakdet.peakdet(values_denoised,scan_sensibity)
-            # else:
-            #     break
+                maxtab, mintab = utils.peakdet.peakdet(values_denoised,scan_sensibity)
+            else:
+                break
+        plt.show()
 
-        observed_lines.index = get_freq_index_from_params(cube_params)
+        observed_lines.index = self.get_freq_index_from_params()
         return observed_lines
 
-    def near_obs_prob(freq_theo, X_detected, s_f):
+    def near_obs_prob(self, freq_theo, X_detected, s_f):
         max_prob = 0
         for freq_obs in X_detected.index:
 
@@ -171,7 +195,7 @@ class Detect:
 
         return [max_prob, freq_max_prob]
 
-    def recal_words(words, X_detected):
+    def recal_words(self, words, X_detected):
 
         words_recal = pd.DataFrame(np.zeros(words.shape))
         words_recal.index = words.index
@@ -191,9 +215,9 @@ class Detect:
             for freq_theo in words[mol].index:
                 if words[mol].loc[freq_theo] != 0:
 
-                    max_prob, freq_obs = near_obs_prob(freq_theo,
+                    max_prob, freq_obs = self.near_obs_prob(freq_theo,
                                                        X_detected,
-                                                       s_f)
+                                                       self.s_f)
                     # In order to reeplace the highest probability for each
                     # observed frecuency, we save the freq that had been
                     # reeplaced already.
@@ -204,12 +228,12 @@ class Detect:
                         words_recal[mol].loc[freq_obs] = max_prob
         return words_recal
 
-    def train(train_pixel, words):
-        X_detected = detect_lines(train_pixel)
-        words_recal = recal_words(words, X_detected)
+    def train(self, train_pixel, words):
+        X_detected = self.detect_lines(train_pixel)
+        words_recal = self.recal_words(words, X_detected)
         return words_recal, X_detected
 
-    def test(test_pixels, words):
+    def test(self, test_pixels, words):
         X_detected = detect_lines(test_pixel)
         words_recal = recal_words(words, X_detected)
         return confusion_matrix

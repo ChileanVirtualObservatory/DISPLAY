@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.12.30)  15 MAR 2015 12:58
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.12.30)  15 MAR 2015 13:03
 entering extended mode
 **plain_main.tex
 
@@ -735,14 +735,7 @@ in.toc")
 \tf@toc=\write4
  [3]
 ("C:\Users\Andres\Repositories\University\ChiVO\DISPLAY\doc\hito final\plain_ma
-in.lof"
-
-LaTeX Warning: Reference `subfig:fig6-1' on page 4 undefined on input line 8.
-
-
-LaTeX Warning: Reference `fig6-2' on page 4 undefined on input line 8.
-
-)
+in.lof")
 \tf@lof=\write5
  [4]
 ("C:\Users\Andres\Repositories\University\ChiVO\DISPLAY\doc\hito final\plain_ma
@@ -752,7 +745,7 @@ in.lot")
 ("C:\Users\Andres\Repositories\University\ChiVO\DISPLAY\doc\hito final\include/
 metodologia.tex") [6]
 ("C:\Users\Andres\Repositories\University\ChiVO\DISPLAY\doc\hito final\include/
-problema.tex" <images/fig1.png, id=132, 2195.20125pt x 1619.04875pt>
+problema.tex" <images/fig1.png, id=136, 2195.20125pt x 1619.04875pt>
 File: images/fig1.png Graphic file (type png)
 
 <use images/fig1.png>
@@ -771,13 +764,13 @@ po-ni-ble en [][][]https://github.com/ChileanVirtualObservatory/ASYDO.
 ("C:\Users\Andres\Repositories\University\ChiVO\DISPLAY\doc\hito final\include/
 sota.tex" [11]) [12]
 ("C:\Users\Andres\Repositories\University\ChiVO\DISPLAY\doc\hito final\include/
-desarrollo.tex" <images/fig0.png, id=204, 273.27094pt x 225.84375pt>
+desarrollo.tex" <images/fig0.png, id=208, 273.27094pt x 225.84375pt>
 File: images/fig0.png Graphic file (type png)
 
 <use images/fig0.png>
 Package pdftex.def Info: images/fig0.png used on input line 25.
 (pdftex.def)             Requested size: 273.27025pt x 225.84319pt.
- [13] <images/fig2.png, id=212, 1233.6489pt x 615.7404pt>
+ [13] <images/fig2.png, id=216, 1233.6489pt x 615.7404pt>
 File: images/fig2.png Graphic file (type png)
 
 <use images/fig2.png>
@@ -785,7 +778,7 @@ Package pdftex.def Info: images/fig2.png used on input line 42.
 (pdftex.def)             Requested size: 398.33858pt x 198.81668pt.
  [14 <C:/Users/Andres/Repositories/University/ChiVO/DISPLAY/doc/hito final/imag
 es/fig0.png>]
-<images/fig3.png, id=220, 1233.6489pt x 615.7404pt>
+<images/fig3.png, id=224, 1233.6489pt x 615.7404pt>
 File: images/fig3.png Graphic file (type png)
  <use images/fig3.png>
 Package pdftex.def Info: images/fig3.png used on input line 51.
@@ -793,13 +786,13 @@ Package pdftex.def Info: images/fig3.png used on input line 51.
 
 [15 <C:/Users/Andres/Repositories/University/ChiVO/DISPLAY/doc/hito final/image
 s/fig2.png> <C:/Users/Andres/Repositories/University/ChiVO/DISPLAY/doc/hito fin
-al/images/fig3.png>] <images/fig4.png, id=227, 1233.6489pt x 615.7404pt>
+al/images/fig3.png>] <images/fig4.png, id=231, 1233.6489pt x 615.7404pt>
 File: images/fig4.png Graphic file (type png)
 
 <use images/fig4.png>
 Package pdftex.def Info: images/fig4.png used on input line 61.
 (pdftex.def)             Requested size: 398.33858pt x 198.81668pt.
- <images/fig5.png, id=228, 1233.6489pt x 615.7404pt>
+ <images/fig5.png, id=232, 1233.6489pt x 615.7404pt>
 File: images/fig5.png Graphic file (type png)
 
 <use images/fig5.png>
@@ -808,24 +801,17 @@ Package pdftex.def Info: images/fig5.png used on input line 70.
  [16 <C:/Users/Andres/Repositories/University/ChiVO/DISPLAY/doc/hito final/imag
 es/fig4.png> <C:/Users/Andres/Repositories/University/ChiVO/DISPLAY/doc/hito fi
 nal/images/fig5.png>]
-<images/fig6-1.png, id=235, 1233.6489pt x 615.7404pt>
+<images/fig6-1.png, id=239, 1233.6489pt x 615.7404pt>
 File: images/fig6-1.png Graphic file (type png)
  <use images/fig6-1.png>
 Package pdftex.def Info: images/fig6-1.png used on input line 100.
 (pdftex.def)             Requested size: 284.52756pt x 142.01192pt.
 
-<images/fig6-2.png, id=236, 1233.6489pt x 615.7404pt>
+<images/fig6-2.png, id=240, 1233.6489pt x 615.7404pt>
 File: images/fig6-2.png Graphic file (type png)
  <use images/fig6-2.png>
 Package pdftex.def Info: images/fig6-2.png used on input line 104.
 (pdftex.def)             Requested size: 284.52756pt x 142.01192pt.
-
-
-LaTeX Warning: Reference `subfig:fig6-1' on page 17 undefined on input line 105
-.
-
-
-LaTeX Warning: Reference `fig6-2' on page 17 undefined on input line 105.
 
 [17] [18 <C:/Users/Andres/Repositories/University/ChiVO/DISPLAY/doc/hito final/
 images/fig6-1.png> <C:/Users/Andres/Repositories/University/ChiVO/DISPLAY/doc/h
@@ -844,17 +830,13 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 106.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 106.
 Package rerunfilecheck Info: File `plain_main.out' has not changed.
 (rerunfilecheck)             Checksum: 7676CC06FE15732CF640A998E739C653;826.
-
-
-LaTeX Warning: There were undefined references.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 106.
  ) 
 Here is how much of TeX's memory you used:
- 8857 strings out of 493921
- 127538 string characters out of 3144872
+ 8855 strings out of 493921
+ 127539 string characters out of 3144872
  232901 words of memory out of 3000000
- 11922 multiletter control sequences out of 15000+200000
+ 11920 multiletter control sequences out of 15000+200000
  10798 words of font info for 39 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  34i,8n,43p,1580b,358s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -873,9 +855,9 @@ eX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program Files (x86)/MiKTeX 2
 /fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files (x86)/MiKTeX 2.9/f
 onts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fon
 ts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on plain_main.pdf (21 pages, 3358219 bytes).
+Output written on plain_main.pdf (21 pages, 3358681 bytes).
 PDF statistics:
- 336 PDF objects out of 1000 (max. 8388607)
+ 340 PDF objects out of 1000 (max. 8388607)
  74 named destinations out of 1000 (max. 500000)
  145 words of extra memory for PDF output out of 10000 (max. 10000000)
 
