@@ -37,6 +37,18 @@ def show_words(dictionary, isolist):
         plt.plot(dictionary[p])
         plt.show()
 
+def show_recall(Results):
+    for fscore in Results['Recall'].index:
+        print fscore + "   " + str(Results['Recall'].loc[fscore])
+
+def show_precision(Results):
+    for fscore in Results['Precision'].index:
+        print fscore + "   " + str(Results['Precision'].loc[fscore])
+
+def show_fscore(Results):
+    for fscore in Results['F-Score'].index:
+        print fscore + "   " + str(Results['F-Score'].loc[fscore])
+
 
 # Dictionary of molecules and its respective isotopes.
 molist = {
@@ -50,7 +62,7 @@ molist = {
             'CN' : ('CNv=0', '13CN', 'C15N'), # Cyanide Radical
 
             'HCN' : ('HCNv=0', 'HCNv2=1', 'HCNv2=2','HCNv3=1', 'HC15Nv=0',
-                     'H13CNv2=1', 'H13CNv=0', 'HCNv1=1', 'HCNv3=1', 'DCNv=0',
+                     'H13CNv2=1', 'H13CNv=0', 'HCNv1=1', 'DCNv=0',
                      'DCNv2=1', 'HCNv2=4', 'HCNv2=1^1-v2=4^0'),
             # Hydrogen Cyanide
 
@@ -62,7 +74,7 @@ molist = {
 
             'CCS' : ('CCS', 'C13CS', '13CCS', 'CC34S'), # Thioxoethenylidene
 
-            'H2S' : ('H2S', 'H2S', 'H234S', 'D2S'), # Hydrogen sulfide
+            'H2S' : ('H2S', 'H234S', 'D2S'), # Hydrogen sulfide
 
             'H2CS' : ('H2CS', 'H213CS', 'H2C34S'), # Thioformaldehyde
 
@@ -78,11 +90,13 @@ molist = {
             # 'HC3N' : ('HC3Nv=0'), # Cyanoacetylene
 
             'HC5N' : ('HC5Nv=0', 'HC5Nv11=1', 'HCC13CCCN', 'HCCCC13CN',
-                      'HCCC13CCN', 'H13CCCCCN', 'HC13CCCCN'), # Cyanobutadiyne
+                      'HCCC13CCN', 'H13CCCCCN'), # Cyanobutadiyne
 
             'CH3OH' : ('CH3OHvt=0', '13CH3OHvt=0 ', 'CH318OH', 'CH3OHvt=1 ',
                        '13CH3OHvt=1 ') # Methanol
           }
+
+
 
 # if __name__ == "__main__":
 
@@ -152,8 +166,8 @@ dictionary = load_dictionary()
 #
 file_path = cube_name + '.fits'
 # file_path_without_noise = cube_name_without_noise + '.fits'
-Detector = Detect(cube_params, file_path)
-dictionary_recal, X = Detector.train((1, 1), dictionary)
+Detector = Detect(cube_params, file_path, (1, 1))
+dictionary_recal, X = Detector.train(dictionary)
 
 y_train = get_fortran_array(np.asmatrix(X))
 dictionary_recal_fa = np.asfortranarray(dictionary_recal, dtype= np.double)
@@ -170,30 +184,98 @@ param = {
 alpha = spams.lasso(y_train, dictionary_recal_fa, **param).toarray()
 total = np.inner(dictionary_recal_fa, alpha.T)
 
-show_alphas_in_isolist(alpha, isolist)
+# show_alphas_in_isolist(alpha, isolist)
 
-plt.plot(y_train, color='r', label='Observed')
-plt.plot(total, color='b', label='Recovered', linestyle='--')
-plt.legend(loc='upper right')
-plt.show()
+
 
 # Testing
 #
 #
 # show_alphas_in_isolist(alpha, isolist)
 lines = Detector.get_lines_from_fits()
-
-print "Observed"
+for freq in lines.index:
+    plt.axvline(x=freq, ymin=0, ymax= 1, color='g')
+    plt.text(freq, 1, lines[freq], size='smaller', rotation='vertical')
+plt.plot(Detector.get_freq_index_from_params(), y_train, color='r', label='Observed')
+plt.plot(Detector.get_freq_index_from_params(), total, color='b', label='Recovered', linestyle='--')
 for freq in range(cube_params['spe_bw']):
     if np.mean(dictionary_recal.iloc[freq]) != 0:
-        print dictionary_recal.index[freq]
         for mol_ix in range(len(dictionary_recal.columns)):
             mol = dictionary_recal.columns[mol_ix]
             if dictionary_recal[mol].iloc[freq] != 0 and alpha[mol_ix] != 0:
-                print mol + ": " + str(alpha[mol_ix])
+                plt.text(freq, 1.2, mol, size='smaller', rotation='vertical')
+plt.legend(loc='upper right')
 
-print "Simulated"
-for freq in lines.index:
-        for line in lines[freq]:
-          print freq
-          print line
+plt.show()
+
+
+
+# Confusion Matrix construction
+set_isotopes = set()
+
+for freq in range(cube_params['spe_bw']):
+    if np.mean(dictionary_recal.iloc[freq]) != 0:
+        for mol_ix in range(len(dictionary_recal.columns)):
+            mol = dictionary_recal.columns[mol_ix]
+            if dictionary_recal[mol].iloc[freq] != 0 and alpha[mol_ix] != 0:
+                    set_isotopes.add(mol)
+for line in lines:
+    set_isotopes.add(line)
+
+MatrixConfusion = pd.DataFrame(np.zeros(
+                                        (len(set_isotopes),
+                                        len(set_isotopes))
+                                        ),
+                                index=set_isotopes,
+                                columns=set_isotopes)
+
+# print "Observed"
+for freq in range(cube_params['spe_bw']):
+    if np.mean(dictionary_recal.iloc[freq]) != 0:
+        # print dictionary_recal.index[freq]
+        sum = 0
+        TempAlpha = pd.Series()
+        for mol_ix in range(len(dictionary_recal.columns)):
+            mol = dictionary_recal.columns[mol_ix]
+            if dictionary_recal[mol].iloc[freq] != 0 and alpha[mol_ix] != 0:
+                    # print mol + ": " + str(alpha[mol_ix])
+                    TempAlpha[mol] = alpha[mol_ix]
+                    sum += alpha[mol_ix]
+        TempAlpha = TempAlpha/sum
+
+        # print " closest line "
+        closest_line = lines[min(lines.index, key=lambda x:abs(x-dictionary_recal.index[freq]))]
+        # print closest_line
+
+        for isotope in TempAlpha.index:
+            MatrixConfusion[isotope].loc[closest_line] += TempAlpha[isotope]
+
+Results = pd.DataFrame(np.zeros((len(set_isotopes), 3)),
+                  index=set_isotopes, columns=['Precision', 'Recall',
+                                                  'F-Score'])
+
+for isotope in set_isotopes:
+    true_positives = 0
+    total = 0
+    for row in MatrixConfusion.index:
+        if isotope == row:
+            true_positives = MatrixConfusion.loc[row][isotope]
+        total += MatrixConfusion.loc[row][isotope]
+    if total != 0:
+        Results['Recall'].loc[isotope] = true_positives/total
+
+for isotope in set_isotopes:
+    true_positives = 0
+    total = 0
+    for column in MatrixConfusion.columns:
+        if column == isotope:
+            true_positives += MatrixConfusion.loc[isotope][column]
+        total += MatrixConfusion.loc[isotope][column]
+    if total != 0:
+        Results['Precision'].loc[isotope] = true_positives/total
+
+for isotope in set_isotopes:
+    recall = Results['Recall'].loc[isotope]
+    precision = Results['Precision'].loc[isotope]
+    if recall != 0 or precision != 0:
+        Results['F-Score'].loc[isotope] = 2.*(recall*precision)/(recall + precision)

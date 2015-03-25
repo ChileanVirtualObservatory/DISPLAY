@@ -45,7 +45,7 @@ if __name__ != "create_cube":
 
         cube = univ.gen_cube('observerd', cube_params['alpha'],
                                  cube_params['delta'], cube_params['freq'],
-                                 10, 90, cube_params['spe_res'],
+                                 10, 20, cube_params['spe_res'],
                                  cube_params['spe_bw'],
                                  white_noise)
 
