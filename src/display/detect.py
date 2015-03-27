@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import math
 import matplotlib.pyplot as plt
 
 
@@ -26,7 +27,7 @@ def gaussian_weighted(x, mu, sig, w):
     """
 
       """
-    return np.power(w, 2.)*np.exp(-np.power(x - mu, 2.) / (2*np.power(sig, 2.)))
+    return np.power(w, 2.) * np.exp(-np.power(x - mu, 2.) / (2 * np.power(sig, 2.)))
 
 def fwhm2sigma(freq,fwhm):
     """
@@ -39,8 +40,6 @@ def fwhm2sigma(freq,fwhm):
 class Detect:
 
     def __init__(self, cube_params, file_path, train_pixel):
-
-
 
         # Cube parameters
         self.freq = cube_params["freq"]
@@ -56,8 +55,13 @@ class Detect:
         self.values = self.get_values_filtered_normalized(train_pixel)
         self.mean_noise, self.std_noise = self.get_noise_parameters_from_fits()
         self.threshold = self.get_thresold_parameter()
-        self.detected_lines = pd.Series(np.zeros([self.spe_bw]))
-        self.detected_temps = pd.Series(np.zeros([self.spe_bw]))
+
+        self.detected_lines = np.zeros([self.spe_bw])
+        self.detected_temps = np.zeros([self.spe_bw])
+        self.detected_gauss = np.zeros([self.spe_bw])
+
+        self.max_line_freq = []
+        self.max_line_temp = []
 
     def get_data_from_fits(self):
         hdu_list = fits.open(self.file_path)
@@ -95,7 +99,7 @@ class Detect:
 
 
     def get_thresold_parameter(self):
-        return self.mean_noise + 3*self.std_noise
+        return max(self.mean_noise, 0) + 3*self.std_noise
 
 
     def get_win_len_from_s_f(self):
@@ -113,35 +117,57 @@ class Detect:
                          self.freq + int(self.spe_bw/2),
                          self.spe_res)
 
+    def plot_data(self):
+        values = self.data[:,0,1]
+        plt.plot(values, color='r', label='Observed spectra')
+        plt.xlabel('Relative Frequency [MHz]')
+        plt.ylabel('Temperature [Normalized]')
+        plt.legend(loc='upper right')
+        plt.show()
+
+    def plot_detected_lines(self):
+        # Plot detected max
+        plt.plot(self.values, color='r', label='Observed Filtered')
+        plt.xlabel('Relative Frequency [MHz]')
+        plt.ylabel('Temperature [Normalized]')
+        plt.legend(loc='upper right')
+        # Plot Array with max and min detected in the spectra
+        # Plot max point
+        for i in range(len(self.max_line_freq)):
+            plt.plot(self.max_line_freq[i], self.max_line_temp[i], 'bs')
+        plt.axhspan(0, self.threshold, alpha=0.5)
+        plt.show()
+
     def detect_lines_simple(self, maxtab):
 
         for max_line_temp in maxtab[:,1]:
 
-            if max_line_temp > self.threshold:
+            if max_line_temp > max(self.mean_noise, 0):
 
                 max_line_freq = maxtab[maxtab[:,1] == max_line_temp][:,0]
 
-                # Plot max point
-                plt.plot(max_line_freq, max_line_temp, 'bs')
+                self.max_line_freq.append(max_line_freq)
+                self.max_line_temp.append(max_line_temp)
 
                 # Set 1 as value of the line
-                self.detected_lines.iloc[int(max_line_freq)] = 1
+                self.detected_lines[int(max_line_freq)] = 1
 
                 # Save the temp for the property
-                self.detected_temps.iloc[int(max_line_freq)] += max_line_temp
-        return self.detected_lines
+                self.detected_temps[int(max_line_freq)] += max_line_temp
 
-    def detect_lines_subtracting_gaussians(self, maxtab, values_denoised):
+    def detect_lines_subtracting_gaussians(self, maxtab, values):
+
+        val = np.array(values)
 
         while len(maxtab) > 0:
             max_line_temp = max(maxtab[:,1])
 
-            if max_line_temp > self.threshold:
+            if max_line_temp > max(self.mean_noise, 0):
 
                 max_line_freq = maxtab[maxtab[:,1] == max_line_temp][:,0]
 
-                # Plot max point
-                plt.plot(max_line_freq, max_line_temp, 'bs')
+                self.max_line_freq.append(max_line_freq)
+                self.max_line_temp.append(max_line_temp)
 
                 # Fit the gaussian
                 gauss_fitt = (max_line_temp)*\
@@ -149,20 +175,20 @@ class Detect:
                                      max_line_freq,  self.s_f)
 
                 # Subtract the gaussian
-                for i in xrange(0, len(values_denoised)):
-                    values_denoised[i] = max(values_denoised[i] - gauss_fitt[i],
-                                             self.mean_noise)
+                for i in range(0, len(values)):
+                    val[i] = max(val[i] - gauss_fitt[i], self.mean_noise)
+
+                # Save the observation with gaussians
+                self.detected_gauss += gauss_fitt
 
                 # Set 1 as value of the line
-                self.detected_lines.iloc[int(max_line_freq)] = 1
+                self.detected_lines[int(max_line_freq)] = 1
                 # Save the temp for the property
-                self.detected_temps.iloc[int(max_line_freq)] += max_line_temp
+                self.detected_temps[int(max_line_freq)] += max_line_temp
 
-                maxtab, mintab = utils.peakdet.peakdet(values_denoised,
-                                                       self.threshold)
+                maxtab, mintab = utils.peakdet.peakdet(val,  self.threshold)
             else:
                 break
-        return self.detected_lines
 
     def get_lines_from_fits(self):
         #lines = pd.Series([dict() for i in range(self.spe_bw)])
@@ -183,70 +209,86 @@ class Detect:
         hdu_list.close()
         return lines
 
+    def get_temps_from_fits(self):
+        #lines = pd.Series([dict() for i in range(self.spe_bw)])
+        #lines.index = self.get_freq_index_from_params()
+        lines = pd.DataFrame([])
+
+        i = 3
+        hdu_list = fits.open(self.file_path)
+        while(i < len(hdu_list)):
+            for line in hdu_list[i].data:
+                """
+                    line[1] : Formula
+                    line[3] : Frequency (MHz)
+                    line[6] : Temperature (No unit)
+                """
+                lines.loc[int(line[3])]= [line[1], line[6]]
+            i = i + 3
+        hdu_list.close()
+        return lines
+
     def detect_lines(self):
         # Detecting
         #
-        # Plot detected max
-        plt.plot(self.values, color='r', label='Observed Filtered')
-        plt.xlabel('Relative Frequency [MHz]')
-        plt.ylabel('Temperature [Normalized]')
-        # plt.legend(loc='upper right')
         # Array with max and min detected in the spectra
         maxtab, mintab = utils.peakdet.peakdet(self.values, self.threshold)
         self.detect_lines_subtracting_gaussians(maxtab, self.values)
-        self.detected_lines.index = self.get_freq_index_from_params()
-        self.detected_temps.index = self.get_freq_index_from_params()
-        plt.axhspan(0, self.threshold, facecolor='0.5')
-        plt.show()
 
-        return self.detected_lines
+        return self.detected_gauss
 
-    def near_obs_prob(self, freq_theo, s_f):
-        max_prob = 0
-        for freq_obs in self.detected_lines.index:
+    def near_obs_freq(self, freq_theo):
 
-            if self.detected_lines.loc[freq_obs] != 0:
+        min_dist = self.spe_bw
+        near_freq = 0
 
-                prob = gaussian(freq_theo, freq_obs, (s_f))
-                # prob = gaussian_weighted(freq_theo, freq_obs, (s_f),
-                #                          self.detected_temps.loc[freq_obs])
-                if prob == 1:
-                    return [prob, freq_obs]
-                elif max_prob < prob:
-                    max_prob = prob
-                    freq_max_prob = freq_obs
+        for freq_obs in range(0, self.spe_bw):
 
-        return [max_prob, freq_max_prob]
+            if self.detected_lines[freq_obs] != 0:
+
+                dist = math.fabs(freq_theo - freq_obs)
+
+                if dist == 0:
+                    return freq_obs
+                elif min_dist > dist:
+                    min_dist = dist
+                    near_freq = freq_obs
+        return near_freq
+
+    def near_obs_prob(self, freq_theo, near_freq_obs):
+        sigma = fwhm2sigma(self.freq, self.s_f)
+        gauss_weight = gaussian_weighted(freq_theo, near_freq_obs,
+                                      sigma, self.detected_temps[near_freq_obs])
+        factor = 2*sigma
+        ini = int(round(near_freq_obs - factor))
+        end =int(round(near_freq_obs + factor))
+        if ini < 0:
+            ini = 0
+        if end > self.spe_bw:
+            end = self.spe_bw
+        window = np.arange(ini, end, self.spe_res)
+        gauss_fit = gauss_weight*gaussian(window,
+                                      near_freq_obs, sigma)
+        return gauss_fit, window
 
     def recal_words(self, words):
 
         words_recal = pd.DataFrame(np.zeros(words.shape))
-        words_recal.index = words.index
+        words_recal.index = np.arange(0, self.spe_bw,  self.spe_res)
         words_recal.columns = words.columns
 
         for mol in words.columns:
-            # Auxiliar array that holds modified observed frequencies
-            changed_prob_freqs = np.array([])
+            # The theorethical line will be replaced by the max probability of
+            # the nearest observed line (Gaussian decay distance weighted)
 
-            # The word must have theoretical lines in the window
-            if np.mean(words[mol]) == 0:
-                continue
-
-            # Then, those lines in certain frequencies will be reeplaced
-            # by the probability of the theoretical line to the nearest
-            # observed line (Gaussian decay distance weighted)
-            for freq_theo in words[mol].index:
-                if words[mol].loc[freq_theo] != 0:
-
-                    max_prob, freq_obs = self.near_obs_prob(freq_theo, self.s_f)
-                    # In order to reeplace the highest probability for each
-                    # observed frecuency, we save the freq that had been
-                    # reeplaced already.
-                    if freq_obs not in changed_prob_freqs:
-                        words_recal[mol].loc[freq_obs] = max_prob
-                        np.append(changed_prob_freqs, freq_obs)
-                    elif max_prob > words_recal[mol].loc[freq_obs]:
-                        words_recal[mol].loc[freq_obs] = max_prob
+            for freq_theo in range(0, self.spe_bw):
+                if words.iloc[freq_theo][mol] != 0:
+                    nof = self.near_obs_freq(freq_theo)
+                    gauss_fit, window = self.near_obs_prob(freq_theo, nof)
+                    # Reeplace the highest probability for each theoretical line
+                    words_recal[mol].iloc[window] = gauss_fit
+                    break
+        words_recal.index = words.index
         return words_recal
 
     def train(self, words):
@@ -254,7 +296,7 @@ class Detect:
         words_recal = self.recal_words(words)
         return words_recal, X_detected
 
-    def test(self, words):
+    def test(self, recal_words):
         X_detected = detect_lines(test_pixel)
         words_recal = recal_words(words)
         return confusion_matrix

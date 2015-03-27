@@ -249,12 +249,13 @@ class IMCM(Component):
 
 
     def project(self, cube):
-
+        arr_code = []
+        arr_rest_freq = []
         dba = db.lineDB(self.dbpath)
         dba.connect()
         freq_init_corr = cube.freq_border[0] / (1 + self.z)
         freq_end_corr = cube.freq_border[1] / (1 + self.z)
-        counter = 0
+        count = 0
         used = False
         for mol in self.intens:
             # For each molecule specified in the dictionary
@@ -264,13 +265,19 @@ class IMCM(Component):
                                           freq_end_corr)  # Selected spectral lines for this molecule
 
             for lin in linlist:
-                counter += 1
+                count += 1
                 freq = (1 + self.z) * lin[3]  # Catalogs must be in Mhz
                 window = freq_window(freq, cube.freq_axis)
                 cube.data[window] = 1
                 used = True
 
+                arr_code.append(mol + "-f" + str(lin[3]))
+                arr_rest_freq.append(window)
         dba.disconnect()
         if not used:
             return
-
+        tbhdu = fits.new_table(fits.ColDefs([
+        fits.Column(name='line_code', format='40A', array=arr_code), \
+        fits.Column(name='line', format='D', array=arr_rest_freq) \
+        ]))
+        cube._add_HDU(tbhdu)

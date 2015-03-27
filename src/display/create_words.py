@@ -52,9 +52,18 @@ if __name__ != "create_words":
 
                 lines = univ.gen_cube('observerd', freq, spe_res, spe_bw)
 
-                dictionary[iso] = lines.get_spectrum()
-
-        dictionary.index = np.arange(freq - int(spe_bw/2),freq + int(spe_bw/2), spe_res)
+                if len(lines.hdulist) > 1:
+                    for line in lines.hdulist[1].data:
+                        word =  np.array(np.zeros(len(lines.get_spectrum())))
+                        '''
+                            line[0] : line_code
+                            line[1] : relative freq at the window
+                        '''
+                        word[line[1]] = 1
+                        dictionary[line[0]] = word
+        dictionary.index = np.arange(freq - int(spe_bw/2),
+                                     freq + int(spe_bw/2),
+                                     spe_res)
 
         # range = str(int((freq - spe_bw/2.0)/1000.0)) + " - " + str(int((freq + spe_bw/2.0)/1000.0))
         # dictionary.T.to_csv("dictionary/" + range + ".csv")

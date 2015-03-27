@@ -575,7 +575,7 @@ class IMCM(Component):
                         used = True
 
 
-                arr_code.append(self.comp_name + '-r' + str(self.alpha) + '-d' + str(self.delta) + "-l" + str(counter))
+                arr_code.append(self.comp_name + '-f' + str(lin[3]))
                 arr_mol.append(mol)
                 arr_temp.append(np.max(T[yp - ybord[0], xp - xbord[0]] * temp* L))
                 arr_chname.append(str(lin[2]))
@@ -590,7 +590,7 @@ class IMCM(Component):
         hduG = fits.PrimaryHDU()
         hduG.data = G;
         tbhdu = fits.new_table(fits.ColDefs([
-            fits.Column(name='line_code', format='60A', array=arr_code),
+            fits.Column(name='line_code', format='40A', array=arr_code),
             fits.Column(name='mol', format='20A', array=arr_mol), \
             fits.Column(name='chname', format='40A', array=arr_chname), \
             fits.Column(name='rest_freq', format='D', array=arr_rest_freq), \
