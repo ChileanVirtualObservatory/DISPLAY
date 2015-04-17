@@ -1,26 +1,26 @@
-import sys
-import numpy as np
+#This file is part of ChiVO, the Chilean Virtual Observatory
+#A project sponsored by FONDEF (D11I1060)
+#Copyright (C) 2015 Universidad Tecnica Federico Santa Maria Mauricio Solar
+#                                                            Marcelo Mendoza
+#                   Universidad de Chile                     Diego Mardones
+#                   Pontificia Universidad Catolica          Karim Pichara
+#                   Universidad de Concepcion                Ricardo Contreras
+#                   Universidad de Santiago                  Victor Parada
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-def peakdet(v, delta, x = None):
-    """
-    Converted from MATLAB script at http://billauer.co.il/peakdet.html
-    
-    Returns two arrays
-    
-    function [maxtab, mintab]=peakdet(v, delta, x)
-    %PEAKDET Detect peaks in a vector
-    %        [MAXTAB, MINTAB] = PEAKDET(V, DELTA) finds the local
-    %        maxima and minima ("peaks") in the vector V.
-    %        MAXTAB and MINTAB consists of two columns. Column 1
-    %        contains indices in V, and column 2 the found values.
-    %      
-    %        With [MAXTAB, MINTAB] = PEAKDET(V, DELTA, X) the indices
-    %        in MAXTAB and MINTAB are replaced with the corresponding
-    %        X-values.
-    %
-    %        A point is considered a maximum peak if it has the maximal
-    %        value, and was preceded (to the left) by a value lower by
-    %        DELTA.
     
     % Eli Billauer, 3.4.05 (Explicitly not copyrighted).
     % This function is released to the public domain; Any use is allowed.
