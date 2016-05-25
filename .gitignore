@@ -88,9 +88,9 @@ ENV/
 # Rope project settings
 .ropeproject
 
-.fits
+src/data/*.fits
 .pyc
-.pkl
+src/pickle/*.pkl
 
 src/ASYDO.sqlite
 src/splatalogue.csv
