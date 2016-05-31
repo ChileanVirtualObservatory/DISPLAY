@@ -47,10 +47,10 @@ def gaussian(x, mu, sig):
     return np.exp(-np.power(x - mu, 2.) / (2 * np.power(sig, 2.)))
 
 
-def gaussian_weighted(x, mu, sig, w, factor):
+def gaussian_weighted(x, mu, sig, w):
     """
       """
-    return factor*w * gaussian(x, mu, sig)
+    return w * gaussian(x, mu, sig)
 
 def fwhm2sigma(freq, fwhm):
     """
@@ -404,19 +404,22 @@ def get_confusion_matrix(dictionary_recal, alpha, file_path, cube_params, dual_w
 
     return confusion_matrix
 
-def get_thresold_parameter(file_path, cube_params):
-    mean_noise, std_noise = get_noise_parameters_from_fits(file_path, cube_params)
+def get_thresold_parameter(file_path, cube_params, train_pixel, noise_pixel):
+    mean_noise, std_noise = get_noise_parameters_from_fits(file_path,
+        cube_params, train_pixel, noise_pixel)
     return max(mean_noise, 0) + 3*std_noise
 
-def detect_lines(file_path, cube_params, option=''):
+def detect_lines(file_path, cube_params, train_pixel, noise_pixel, option=''):
 
     detected_lines = np.zeros([cube_params['spe_bw']/cube_params['spe_bw']])
     detected_temps = np.zeros([cube_params['spe_bw']/cube_params['spe_bw']])
 
-    values = get_values_filtered_normalized(file_path, (1,1), cube_params)
+    values = get_values_filtered_normalized(file_path, train_pixel, cube_params)
 
-    mean_noise = get_noise_parameters_from_fits(file_path, cube_params)
-    threshold = get_thresold_parameter(file_path, cube_params)
+    mean_noise = get_noise_parameters_from_fits(file_path, cube_params,
+                    train_pixel, noise_pixel)
+    threshold = get_thresold_parameter(file_path, cube_params,
+                    train_pixel, noise_pixel)
 
     # Array with max and min detected in the spectra
     maxtab, mintab = packages.utils.peakdet.peakdet(values, threshold)
@@ -437,15 +440,18 @@ def detect_lines(file_path, cube_params, option=''):
 
     return detected_lines
 
-def detect_lines_subtracting_gaussians(file_path, cube_params, option=''):
+def detect_lines_subtracting_gaussians(file_path, cube_params, train_pixel,
+        noise_pixel):
 
     detected_lines = np.zeros([cube_params['spe_bw']/cube_params['spe_res']])
     detected_temps = np.zeros([cube_params['spe_bw']/cube_params['spe_res']])
 
-    values = get_values_filtered_normalized(file_path, (1,1), cube_params)
+    values = get_values_filtered_normalized(file_path, train_pixel, cube_params)
 
-    mean_noise, std_noise = get_noise_parameters_from_fits(file_path, cube_params)
-    threshold = get_thresold_parameter(file_path, cube_params)
+    mean_noise, std_noise = get_noise_parameters_from_fits(file_path,
+                                cube_params, train_pixel, noise_pixel)
+    threshold = get_thresold_parameter(file_path, cube_params,
+                    train_pixel, noise_pixel)
 
     # Array with max and min detected in the spectra
     maxtab, mintab = packages.utils.peakdet.peakdet(values, threshold)
@@ -475,8 +481,7 @@ def detect_lines_subtracting_gaussians(file_path, cube_params, option=''):
         else:
             break
 
-    if option == 'temp':    return detected_temps
-    return detected_lines
+    return detected_lines, detected_temps
 
 def get_lines_from_fits(file_path):
     lines = pd.Series([])
@@ -529,11 +534,11 @@ def near_obs_freq(freq_theo, file_path, cube_params, detected_lines):
 
 
 def near_obs_prob(freq_theo, near_freq_obs, file_path, cube_params,
-                  detected_temps, weight):
+                  detected_temps):
     sigma = fwhm2sigma(cube_params['freq'], cube_params['s_f'])
 
     gauss_weight = gaussian_weighted(freq_theo, near_freq_obs, sigma,
-                                  detected_temps[near_freq_obs], weight)
+                                  detected_temps[near_freq_obs])
     factor = 2*sigma
     ini = int(round(freq_theo - factor))
     end = int(round(freq_theo + factor))
@@ -547,7 +552,8 @@ def near_obs_prob(freq_theo, near_freq_obs, file_path, cube_params,
     gauss_fit = gauss_weight*gaussian(window, near_freq_obs, sigma)
     return gauss_fit, window
 
-def recal_words(file_path, words, cube_params, weight=1):
+def recal_words(file_path, words, cube_params,
+                train_pixel = (1, 1), noise_pixel = (0, 0)):
 
     words_recal = pd.DataFrame(np.zeros(words.shape))
     words_recal.index = get_freq_index_from_params(cube_params)
@@ -555,10 +561,8 @@ def recal_words(file_path, words, cube_params, weight=1):
 
     size_spectra = cube_params['spe_bw']/cube_params['spe_res']
 
-    detected_lines = detect_lines_subtracting_gaussians(file_path, cube_params)
-
-    detected_temps = detect_lines_subtracting_gaussians(file_path, cube_params,
-                                                        option="temp")
+    detected_lines, detected_temps = detect_lines_subtracting_gaussians(
+    file_path, cube_params, train_pixel, noise_pixel)
 
     for mol in words.columns: #'CH3OHvt=0-f602233.197'
         # The theorethical line will be replaced by the max probability of
@@ -569,8 +573,7 @@ def recal_words(file_path, words, cube_params, weight=1):
                                     detected_lines)
                 gauss_fit, window = near_obs_prob(freq_theo, nof,
                                                   file_path, cube_params,
-                                                  detected_temps,
-                                                  weight)
+                                                  detected_temps)
                 # Reeplace the highest probability for each theoretical line
                 words_recal[mol].iloc[window] = gauss_fit
                 break
@@ -597,31 +600,29 @@ def get_values_filtered_normalized(file_path, train_pixel, cube_params):
 
     # Pre-processing
     # The training pixel values
-    values = data[:, train_pixel[0], train_pixel[1]]
+    values = data[0, :, train_pixel[0], train_pixel[1]]
 
     # Apllying a Savitzky-Golay first derivative
     # n#-sigma-point averaging algorithm is applied to the raw dataset
-    win_len = get_win_len_from_s_f(cube_params)
+    # win_len = get_win_len_from_s_f(cube_params)
 
     # Parameter to reduce noise
     poli_order = 2
-    values = savgol_filter(values, win_len, poli_order)
+    values = savgol_filter(values, 7, poli_order)
     # Normalize by the maximum of the serie
     values = values/np.max(values)
     return values
 
 
-def get_noise_parameters_from_fits(file_path, cube_params):
+def get_noise_parameters_from_fits(file_path, cube_params, train_pixel, noise_pixel):
     data = get_data_from_fits(file_path)
-    win_len = get_win_len_from_s_f(cube_params)
 
-    # The pixel (0, 0) always will be a empty pixel with noise
-    values_noise = data[:,0,0]
-    values = data[:,0,1]
+    values_noise = data[0, :, noise_pixel[0], noise_pixel[0]]
+    values = data[0, :, train_pixel[0], train_pixel[0]]
     poli_order = 2
-    values = savgol_filter(values, win_len, poli_order)
+    values = savgol_filter(values, 7, poli_order)
 
-    values_noise = savgol_filter(values_noise, win_len, poli_order)
+    values_noise = savgol_filter(values_noise, 7, poli_order)
     values_noise = values_noise/np.max(values)
     mean_noise = np.mean(values_noise)
     std_noise = np.std(values_noise)
