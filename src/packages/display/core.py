@@ -233,9 +233,13 @@ def gen_words(molist, cube_params, dual_words=False):
     return dictionary
 
 def get_freq_index_from_params(cube_params):
-    return np.arange(cube_params['freq'] - int(cube_params['spe_bw']/2),
-                     cube_params['freq'] + int(cube_params['spe_bw']/2),
-                     cube_params['spe_res'])
+    freq_border = [int(cube_params['freq'] - cube_params['spe_bw'] / 2.0),
+                    int(cube_params['freq'] + cube_params['spe_bw'] / 2.0)]
+    channels = int(round(cube_params['spe_bw'] / cube_params['spe_res']))
+
+    return np.linspace(freq_border[0],
+                     freq_border[1],
+                     channels)
 
 def save_dictionary(D, band):
     output = open('pickle/dictionary_' + band + '.pkl', 'wb')
