@@ -1,0 +1,40 @@
+\section{Conclusion} \label{sec:conclusions}
+
+% Present Tense %
+\begin{comment}
+  - Remember hypothesis
+  - Results support hypothesis
+  - Reached objective proposed in the focus of the problem
+  - With some exceptions, results archived
+  - Extensibility
+  - Next steps
+\end{comment}
+
+% Summary: Summarizing (briefly) from specific to general
+The approach of the investigation is to identify emission lines through the reconstruction of an input signal.
+The combination of representative basis vectors allows us to predict the presence of isotope energy state's lines along wavelength spectra. 
+
+The hypothesis of this investigation can be summarized in as:
+i) a set of basis vectors representing theoretical lines allows to reconstruct an input spectra, and
+ii) the used combination of basis vectors gives useful information to identify the presence of emission lines along the spectra.
+
+% Confirm the topic in the introduction
+Results has shown support for the hypothesis and leaves room for improvements that increases its possibilities given the near coming of real data.
+This data will allow to future investigators to train models and capture actively the patterns in data, its correlations and hidden latent variables.
+Sparse coding technique allows to identify isotope energy states even with blending.
+In addition, even when prediction fails, the mismatch correspond to an isotope of the predicted molecule.
+With this, it is possible to give a basic notion of which is the molecular composition of the astronomical objects simulated.
+For lines with higher miss match, astronomers can focus on analyze just complex cases and automatize detection of a majority of the spectral lines.
+
+% Extensibility
+A major issue in the algorithm elaboration is the lack of relative intensities patterns and co-presence dependence for isotope rotational sequences.
+That makes the algorithm not to relay in co-presences and just try to find each isotope line independently.
+Future extensibility from real data can be the inclusion of relationship between temperatures of lines belonging to the same isotope, or to learn the dependence of co-presence of lines, not for same isotopes, but for all molecules.
+On that line, theoretical lines belonging to unknown molecules are an interesting case to cover.
+The lack of direct common patterns between these lines could be learned and relationships discovered as a way to assign them to known isotopes. 
+
+% Finally, how the topic relates to its context
+% Next steps
+The solution proposed resulted in a first approach to solve this problem.
+Real data will give to researchers new tools to analyze and develop more complex models to make use of patterns that simulations do not allow us to use.
+Certainly, future work can make use of a big amount of data available with the forward of ALMA project to apply more complex word representations and signal reconstruction models.

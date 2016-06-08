@@ -1,0 +1,96 @@
+\documentclass[iop,apj]{emulateapj}
+\usepackage{amsmath,amssymb,amstext}
+\usepackage[breaklinks,colorlinks,citecolor=blue,linkcolor=magenta]{hyperref}
+\renewcommand*{\sectionautorefname}{Section}
+\usepackage[all]{hypcap} %Links go to figures; breaks on deluxetables (use \capstartfalse \capstarttrue to fix it)
+\usepackage[]{algorithm2e}
+\usepackage{subfigure}
+\usepackage{enumerate}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[ampersand]{easylist}
+\usepackage{verbatim}
+\usepackage{trimclip}
+
+\begin{document}
+
+\title{[Automatic Identification of Spectral Lines through Spectrum Reconstruction]}
+\author{Andr\'es Riveros	$^1$}
+\author{Karim Pichara		$^{1,5, 2}$}
+\author{Pavlos Protopapas	$^2$}
+\author{Diego Mardones		$^3$}
+\author{Mauricio Araya		$^4$}
+\affil{$^1$ Computer Science Department, Pontif\'icia Universidad Cat\'olica de Chile, Santiago, Chile}
+\affil{$^2$ Institute for Applied Computational Science, Harvard University, Cambridge, MA, USA}
+\affil{$^3$ Astronomy Department, Universidad de Chile, Santiago, Chile}
+\affil{$^4$ Computer Science Department, Universidad T\'ecnica Federico Santa Mar\'ia, Valpara\'iso, Chile}
+\affil{\altaffilmark{5}Millennium Institute of Astrophysics, Chile}
+
+\begin{abstract}
+
+\begin{comment}
+    - Massive Amount of Data
+    - Astronomers overloaded
+    - What is spectroscopy
+    - Need to automatize process
+    - Step by step task of astronomer
+    - Focus of this work
+    - Automatic Proposed Algorithm
+    - Detailing Algorithm Operation
+    - Reached Results
+    - Strengths and limitations
+    - Conclusions
+\end{comment}
+
+
+Astronomy is facing new challenges on how to analyze big data and therefore, how to search or predict events/patterns of interest.
+New observations in previously unexplored wavelength regions will be available from instruments such as  the Atacama Large Millimeter Array (ALMA).
+Given this growing amount of high spectral resolution data, any non-automatic analysis would be an effort beyond human's capacity.
+Currently, classifying emission lines means to decide if a particular emission line belongs to a specific isotope. 
+This classification is mainly done by comparing them with known isotopes emission lines.
+An automatic line-classification algorithm would dramatically reduce human efforts to analyze spectral data, allowing astronomers to focus their efforts in deeper analysis.
+
+In this work, we propose an algorithm that uses a sparse model to represent the spectra and automatically classify emission lines.
+We use spectral line databases to determine a set of basis vectors that represent the presence of theoretical emission lines.
+Then, to classify lines in a given spectrum, the difference between the spectrum and a linear combination of the determined basis vectors is minimized.
+
+The model's output correspond to a probability vector representing the distribution of the prediction over a set of possible isotopes. 
+We test our algorithm with experimental data from Splatalogue and simulated data from the ASYDO project.
+The results of the analysis show that the algorithm is able to identify emission lines with an accuracy of 90\% when no blending nor hyperfine cases are present.
+As wavelength separation decreases (equal or less than $1$ MHz), accuracy goes down to 82\%.
+
+The source code of the algorithm, synthetic data cubes used and list of suggested identifications are publicly available \footnote{https://github.com/ChileanVirtualObservatory/DISPLAY}.
+
+\end{abstract}
+
+\keywords{
+    spectral lines: emission lines;
+    technique: spectroscopy;
+    method: data analysis
+    }
+
+\maketitle
+
+\input{include/1_introduction}
+
+\input{include/2_background}
+
+\input{include/3_sota}
+
+\input{include/4_data_origin}
+
+\input{include/5_algorithm}
+
+\input{include/6_results}
+
+\input{include/7_conclusion}
+
+\input{include/8_acknowledgments}
+
+\thispagestyle{empty}
+
+\addcontentsline{toc}{section}{References}
+\bibliography{paper-meta}
+\bibliographystyle{plainnat}
+
+\end{document}

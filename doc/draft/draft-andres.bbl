@@ -1,0 +1,417 @@
+\begin{thebibliography}{43}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Becklin(2006)]{becklin_stratospheric_2005}
+E.~E. Becklin.
+\newblock Stratospheric observatory for infrared astronomy ({SOFIA}).
+\newblock In \emph{Astrochemistry: Recent Successes and Current Challenges},
+  volume~1 of \emph{Proceedings of the International Astronomical Union}, pages
+  323--324, 2006.
+\newblock \doi{10.1017/S1743921306007332}.
+\newblock URL \url{http://journals.cambridge.org/article_S1743921306007332}.
+
+\bibitem[Brinch and Hogerheijde(2010)]{brinch_lime_2010}
+C.~Brinch and M.~R. Hogerheijde.
+\newblock {LIME} - a flexible, non-{LTE} line excitation and radiation transfer
+  method for millimeter and far-infrared wavelengths.
+\newblock \emph{Astronomy \& Astrophysics}, 523, 2010.
+\newblock ISSN 0004-6361, 1432-0746.
+\newblock \doi{10.1051/0004-6361/201015333}.
+\newblock URL \url{http://arxiv.org/abs/1008.1492}.
+
+\bibitem[Bristow et~al.(2013)Bristow, Eriksson, and Lucey]{bristow_fast_2013}
+H.~Bristow, A.~Eriksson, and S.~Lucey.
+\newblock Fast convolutional sparse coding.
+\newblock In \emph{2013 {IEEE} Conference on Computer Vision and Pattern
+  Recognition ({CVPR})}, 2013.
+\newblock \doi{10.1109/CVPR.2013.57}.
+
+\bibitem[Caux et~al.(2015)Caux, Bottinelli, Vastel, and
+  Glorian]{caux_cassis_2011}
+E.~Caux, S.~Bottinelli, C.~Vastel, and J.~M. Glorian.
+\newblock {CASSIS}, a software package to analyse high spectral resolution
+  observations.
+\newblock volume 280, page 120P, 2015.
+\newblock ISBN 1743-9221.
+\newblock URL \url{http://adsabs.harvard.edu/abs/2011IAUS..280P.120C}.
+
+\bibitem[Cernicharo et~al.(2013)Cernicharo, Tercero, Fuente, Domenech, Cueto,
+  Carrasco, Herrero, Tanarro, Marcelino, Roueff, Gerin, and
+  Pearson]{cernicharo_detection_2013}
+J.~Cernicharo, B.~Tercero, A.~Fuente, J.~L. Domenech, M.~Cueto, E.~Carrasco,
+  V.~J. Herrero, I.~Tanarro, N.~Marcelino, E.~Roueff, M.~Gerin, and J.~Pearson.
+\newblock Detection of the ammonium ion in space.
+\newblock \emph{Astrophysical Journal Letters}, 2013.
+\newblock URL \url{http://arxiv.org/abs/1306.3364}.
+
+\bibitem[Chen et~al.(2001)Chen, Donoho, and Saunders]{chen_atomic_2001}
+S.~Chen, D.~Donoho, and M.~Saunders.
+\newblock Atomic decomposition by basis pursuit.
+\newblock \emph{{SIAM} Review}, 43\penalty0 (1):\penalty0 129--159, 2001.
+\newblock ISSN 0036-1445.
+\newblock \doi{10.1137/S003614450037906X}.
+\newblock URL \url{http://epubs.siam.org/doi/abs/10.1137/S003614450037906X}.
+
+\bibitem[Comito et~al.(2005)Comito, Schilke, Phillips, Lis, Motte, and
+  Mehringer]{comito_molecular_2005}
+C.~Comito, P.~Schilke, T.~G. Phillips, D.~C. Lis, F.~Motte, and D.~Mehringer.
+\newblock A molecular line survey of orion {KL} in the 350 micron band.
+\newblock \emph{The Astrophysical Journal Supplement Series}, 156:\penalty0
+  127--167, 2005.
+\newblock ISSN 0067-0049.
+\newblock \doi{10.1086/425996}.
+\newblock URL \url{http://adsabs.harvard.edu/abs/2005ApJS..156..127C}.
+
+\bibitem[de~Graauw et~al.(2004)de~Graauw, Caux, Gusten, Jellema, Luinge,
+  Pearson, Phillips, Schieder, Stutzki, Wafelbakker, Whyborn, and
+  Wildeman]{de_graauw_herschel}
+T.~de~Graauw, E.~Caux, R.~Gusten, W.~Jellema, W.~Luinge, J.~Pearson,
+  T.~Phillips, R.~Schieder, J.~Stutzki, K.~Wafelbakker, Nick Whyborn, and
+  K.~Wildeman.
+\newblock The herschel-heterodyne instrument for the far-infrared ({HIFI}).
+\newblock In \emph{Conference Digest of the 2004 Joint 29th International
+  Conference on Infrared and Millimeter Waves, 2004 and 12th International
+  Conference on Terahertz Electronics, 2004}, pages 579--580, 2004.
+\newblock \doi{10.1109/ICIMW.2004.1422223}.
+
+\bibitem[Efron et~al.(2004)Efron, Hastie, Johnstone, and
+  Tibshirani]{efron_least_2004}
+B.~Efron, T.~Hastie, I.~Johnstone, and R.~Tibshirani.
+\newblock Least angle regression.
+\newblock \emph{The Annals of Statistics}, 32\penalty0 (2):\penalty0 407--499,
+  2004.
+\newblock ISSN 0090-5364, 2168-8966.
+\newblock \doi{10.1214/009053604000000067}.
+\newblock URL \url{http://projecteuclid.org/euclid.aos/1083178935}.
+
+\bibitem[Eguchi(2013)]{eguchi_superluminal_2013}
+Satoshi Eguchi.
+\newblock "superluminal" {FITS} file processing on multiprocessors: Zero time
+  endian conversion technique.
+\newblock \emph{Publications of the Astronomical Society of the Pacific},
+  125\penalty0 (927):\penalty0 565--579, 2013.
+\newblock ISSN 00046280, 15383873.
+\newblock \doi{10.1086/671105}.
+\newblock URL \url{http://arxiv.org/abs/1304.5302}.
+
+\bibitem[Fuller and Myers(1993)]{fuller_thermal_1993}
+G.~A. Fuller and P.~C. Myers.
+\newblock Thermal material in dense cores: A new narrow-line probe and
+  technique of temperature determination.
+\newblock \emph{The Astrophysical Journal}, 418:\penalty0 273, 1993.
+\newblock ISSN 0004-637X, 1538-4357.
+\newblock \doi{10.1086/173389}.
+\newblock URL \url{http://adsabs.harvard.edu/doi/10.1086/173389}.
+
+\bibitem[Gusten et~al.(2006)Gusten, Booth, Cesarsky, Menten, Agurto, Anciaux,
+  Azagra, Belitsky, Belloche, Bergman, De~Breuck, Comito, Dumke, Duran, Esch,
+  Fluxa, Greve, Hafok, Häupl, Helldner, Henseler, Heyminck, Johansson,
+  Kasemann, Klein, Korn, Kreysa, Kurz, Lapkin, Leurini, Lis, Lundgren,
+  Mac-Auliffe, Martinez, Melnick, Morris, Muders, Nyman, Olberg, Olivares,
+  Pantaleev, Patel, Pausch, Philipp, Philipps, Sridharan, Polehampton, Reveret,
+  Risacher, Roa, Sauer, Schilke, Santana, Schneider, Sepulveda, Siringo,
+  Spyromilio, Stenvers, van~der Tak, Torres, Vanzi, Vassilev, Weiss,
+  Willmeroth, Wunsch, and Wyrowski]{gusten_apex}
+R.~Gusten, R.~S. Booth, C.~Cesarsky, K.~M. Menten, C.~Agurto, M.~Anciaux,
+  F.~Azagra, V.~Belitsky, A.~Belloche, P.~Bergman, C.~De~Breuck, C.~Comito,
+  M.~Dumke, C.~Duran, W.~Esch, J.~Fluxa, A.~Greve, H.~Hafok, W.~Häupl,
+  L.~Helldner, A.~Henseler, S.~Heyminck, L.~E. Johansson, C.~Kasemann,
+  B.~Klein, A.~Korn, E.~Kreysa, R.~Kurz, I.~Lapkin, S.~Leurini, D.~Lis,
+  A.~Lundgren, F.~Mac-Auliffe, M.~Martinez, J.~Melnick, D.~Morris, D.~Muders,
+  L.~A. Nyman, M.~Olberg, R.~Olivares, M.~Pantaleev, N.~Patel, K.~Pausch, S.~D.
+  Philipp, S.~Philipps, T.~K. Sridharan, E.~Polehampton, V.~Reveret,
+  C.~Risacher, M.~Roa, P.~Sauer, P.~Schilke, J.~Santana, G.~Schneider,
+  J.~Sepulveda, G.~Siringo, J.~Spyromilio, K.-H. Stenvers, F.~van~der Tak,
+  D.~Torres, L.~Vanzi, V.~Vassilev, A.~Weiss, K.~Willmeroth, A.~Wunsch, and
+  F.~Wyrowski.
+\newblock {APEX}: the atacama pathfinder {EXperiment}.
+\newblock volume 6267, pages 626714--626714--26, 2006.
+\newblock \doi{10.1117/12.670798}.
+\newblock URL \url{http://dx.doi.org/10.1117/12.670798}.
+
+\bibitem[Ho et~al.(2004)Ho, Moran, and Lo]{ho_submillimeter_2004}
+Paul T.~P. Ho, James~M. Moran, and Kwok~Yung Lo.
+\newblock The submillimeter array.
+\newblock \emph{The Astrophysical Journal}, 616\penalty0 (1), 2004.
+\newblock ISSN 0004-637X, 1538-4357.
+\newblock \doi{10.1086/423245}.
+\newblock URL \url{http://arxiv.org/abs/astro-ph/0406352}.
+
+\bibitem[Hogerheijde and van~der Tak(2000)]{hogerheijde_accelerated_2000}
+M.~R. Hogerheijde and F.~F.~S. van~der Tak.
+\newblock An accelerated monte carlo method to solve two-dimensional radiative
+  transfer and molecular excitation. with applications to axisymmetric models
+  of star formation.
+\newblock \emph{Astronomy and Astrophysics}, 362:\penalty0 697--710, 2000.
+\newblock ISSN 0004-6361.
+
+\bibitem[Howley et~al.(2005)Howley, Madden, O~Connell, and
+  Ryder]{howley_effect_2005}
+T.~Howley, M.~G. Madden, M.~O~Connell, and A.~G. Ryder.
+\newblock The effect of principal component analysis on machine learning
+  accuracy with high dimensional spectral data.
+\newblock 2005.
+\newblock URL \url{http://aran.library.nuigalway.ie/xmlui/handle/10379/194}.
+
+\bibitem[Madden et~al.(2005)Madden, Leger, Ryder, Howley, and
+  O~Connell]{madden_classification_2005}
+M.~G. Madden, M.~N. Leger, A.~G. Ryder, T.~Howley, and M.~O~Connell.
+\newblock Classification of a target analyte in solid mixtures using principal
+  component analysis, support vector machines and raman spectroscopy.
+\newblock 2005.
+\newblock URL \url{http://aran.library.nuigalway.ie/xmlui/handle/10379/192}.
+
+\bibitem[Mairal(2013)]{mairal_optimization_2013}
+J.~Mairal.
+\newblock Optimization with first-order surrogate functions.
+\newblock \emph{{arXiv}:1305.3120 [cs, math, stat]}, 2013.
+\newblock URL \url{http://arxiv.org/abs/1305.3120}.
+
+\bibitem[Mairal et~al.(2009)Mairal, Bach, Ponce, and
+  Sapiro]{mairal_online_2009}
+J.~Mairal, F.~Bach, J.~Ponce, and G.~Sapiro.
+\newblock Online learning for matrix factorization and sparse coding.
+\newblock \emph{{arXiv}:0908.0050 [cs, math, stat]}, 2009.
+\newblock URL \url{http://arxiv.org/abs/0908.0050}.
+
+\bibitem[Mallat(2009)]{mallat2009}
+S.~Mallat.
+\newblock A wavelet tour of signal processing (third edition).
+\newblock Academic Press, Boston, second edition edition, 2009.
+\newblock ISBN 978-0-12-374370-1.
+
+\bibitem[Maret et~al.(2010)Maret, Hily-Blant, Pety, Bardeau, and
+  Reynier]{maret_weeds:_2010}
+S.~Maret, P.~Hily-Blant, J.~Pety, S.~Bardeau, and E.~Reynier.
+\newblock Weeds: a {CLASS} extension for the analysis of millimeter and
+  sub-millimeter spectral surveys.
+\newblock \emph{{arXiv}:1012.1747 [astro-ph]}, 2010.
+\newblock URL \url{http://arxiv.org/abs/1012.1747}.
+
+\bibitem[M\"uller et~al.(2005)M\"uller, Schlöder, Stutzki, and
+  Winnewisser]{muller_cologne_2005}
+H.~S.~P. M\"uller, F.~Schlöder, J.~Stutzki, and G.~Winnewisser.
+\newblock The cologne database for molecular spectroscopy, {CDMS}: a useful
+  tool for astronomers and spectroscopists.
+\newblock \emph{Journal of Molecular Structure}, 742\penalty0 (1):\penalty0
+  215--227, 2005.
+\newblock ISSN 0022-2860.
+\newblock \doi{10.1016/j.molstruc.2005.01.027}.
+\newblock URL
+  \url{http://www.sciencedirect.com/science/article/pii/S0022286005000888}.
+
+\bibitem[M\"uller et~al.(2008)M\"uller, Belloche, Menten, Comito, and
+  Schilke]{muller_rotational_2008}
+H.~S.~P. M\"uller, A.~Belloche, K.~M. Menten, C.~Comito, and P.~Schilke.
+\newblock Rotational spectroscopy of isotopic vinyl cyanide, h2cchcn, in the
+  laboratory and in space.
+\newblock \emph{Journal of Molecular Spectroscopy}, 251\penalty0 (1):\penalty0
+  319--325, 2008.
+\newblock ISSN 0022-2852.
+\newblock \doi{10.1016/j.jms.2008.03.016}.
+\newblock URL
+  \url{http://www.sciencedirect.com/science/article/pii/S0022285208001252}.
+
+\bibitem[Nummelin et~al.(1998)Nummelin, Bergman, Hjalmarson, Friberg, Irvine,
+  Millar, Ohishi, and Saito]{nummelin_three-position_1998}
+A.~Nummelin, P.~Bergman, Å~Hjalmarson, P.~Friberg, W.~M. Irvine, T.~J. Millar,
+  M.~Ohishi, and S.~Saito.
+\newblock A three-position spectral line survey of sagittarius b2 between 218
+  and 263 {GHz}. i. the observational data.
+\newblock \emph{The Astrophysical Journal Supplement Series}, 117\penalty0
+  (2):\penalty0 427, 1998.
+\newblock ISSN 0067-0049.
+\newblock \doi{10.1086/313126}.
+\newblock URL \url{http://iopscience.iop.org/0067-0049/117/2/427}.
+
+\bibitem[Nummelin et~al.(2000)Nummelin, Bergman, Hjalmarson, Friberg, Irvine,
+  Millar, Ohishi, and Saito]{nummelin_three-position_2000}
+A.~Nummelin, P.~Bergman, Å~Hjalmarson, P.~Friberg, W.~M. Irvine, T.~J. Millar,
+  M.~Ohishi, and S.~Saito.
+\newblock A three-position spectral line survey of sagittarius b2 between 218
+  and 263 {GHz}. {II}. data analysis.
+\newblock \emph{The Astrophysical Journal Supplement Series}, 128\penalty0
+  (1):\penalty0 213, 2000.
+\newblock ISSN 0067-0049.
+\newblock \doi{10.1086/313376}.
+\newblock URL \url{http://iopscience.iop.org/0067-0049/128/1/213}.
+
+\bibitem[Pequignot(1996)]{pequignot_deep_1996}
+D.~Pequignot.
+\newblock Deep spectroscopy of gaseous nebulae.
+\newblock \emph{Physica Scripta Volume T}, 65:\penalty0 137--143, 1996.
+\newblock ISSN 0281-1847.
+\newblock \doi{10.1088/0031-8949/1996/T65/019}.
+\newblock URL \url{http://adsabs.harvard.edu/abs/1996PhST...65..137P}.
+
+\bibitem[Perry et~al.(1955)Perry, Kent, and Berry]{precision_recall}
+James~W. Perry, Allen Kent, and Madeline~M. Berry.
+\newblock Machine literature searching x. machine language; factors underlying
+  its design and development.
+\newblock \emph{American Documentation}, 6\penalty0 (4):\penalty0 242--254,
+  1955.
+\newblock ISSN 1936-6108.
+\newblock \doi{10.1002/asi.5090060411}.
+\newblock URL \url{http://dx.doi.org/10.1002/asi.5090060411}.
+
+\bibitem[Remijan(2010)]{remijan_splatalogue_2010}
+A.~J. Remijan.
+\newblock Splatalogue - motivation, current status, future plans.
+\newblock volume 215, page 568, 2010.
+\newblock URL \url{http://adsabs.harvard.edu/abs/2010AAS...21547905R}.
+
+\bibitem[Remijan and Markwick-Kemper(2008)]{remijan_splatalogue:_2008}
+A.~J. Remijan and A.~J. Markwick-Kemper.
+\newblock {SPLATALOGUE}: {DATABASE} {FOR} {ASTRONOMICAL} {SPECTROSCOPY}.
+\newblock 2008.
+\newblock ISSN http://hdl.handle.net/1811/33544.
+\newblock URL \url{http://hdl.handle.net/1811/33544}.
+
+\bibitem[Schilke et~al.(2001)Schilke, Benford, Hunter, Lis, and
+  Phillips]{schilke_line_2001}
+P.~Schilke, D.~J. Benford, T.~R. Hunter, D.~C. Lis, and T.~G. Phillips.
+\newblock A line survey of orion-{KL} from 607 to 725 {GHz}.
+\newblock \emph{The Astrophysical Journal Supplement Series}, 132\penalty0
+  (2):\penalty0 281, 2001.
+\newblock ISSN 0067-0049.
+\newblock \doi{10.1086/318951}.
+\newblock URL \url{http://iopscience.iop.org/0067-0049/132/2/281}.
+
+\bibitem[Schilke et~al.(2011)Schilke, Rolffs, and
+  Comito]{schilke_analysis_2011}
+P.~Schilke, R.~Rolffs, and C.~Comito.
+\newblock Analysis tools for spectral surveys.
+\newblock In \emph{The Molecular Universe}, volume~7 of \emph{Proceedings of
+  the International Astronomical Union}, pages 440--448, 2011.
+\newblock \doi{10.1017/S174392131102518X}.
+\newblock URL \url{http://journals.cambridge.org/article_S174392131102518X}.
+
+\bibitem[Schuller et~al.(2009)Schuller, Menten, Contreras, Wyrowski, Schilke,
+  Bronfman, Henning, Walmsley, Beuther, Bontemps, Cesaroni, Deharveng, Garay,
+  Herpin, Lefloch, Linz, Mardones, Minier, Molinari, Motte, Nyman, Reveret,
+  Risacher, Russeil, Schneider, Testi, Troost, Vasyunina, Wienen, Zavagno,
+  Kovacs, Kreysa, Siringo, and Weiss]{schuller_atlasgal_2009}
+F.~Schuller, K.~M. Menten, Y.~Contreras, F.~Wyrowski, P.~Schilke, L.~Bronfman,
+  T.~Henning, C.~M. Walmsley, H.~Beuther, S.~Bontemps, R.~Cesaroni,
+  L.~Deharveng, G.~Garay, F.~Herpin, B.~Lefloch, H.~Linz, D.~Mardones,
+  V.~Minier, S.~Molinari, F.~Motte, L.-A. Nyman, V.~Reveret, C.~Risacher,
+  D.~Russeil, N.~Schneider, L.~Testi, T.~Troost, T.~Vasyunina, M.~Wienen,
+  A.~Zavagno, A.~Kovacs, E.~Kreysa, G.~Siringo, and A.~Weiss.
+\newblock {ATLASGAL} - the {APEX} telescope large area survey of the galaxy at
+  870 microns.
+\newblock \emph{Astronomy and Astrophysics}, 504\penalty0 (2):\penalty0
+  415--427, 2009.
+\newblock ISSN 0004-6361, 1432-0746.
+\newblock \doi{10.1051/0004-6361/200811568}.
+\newblock URL \url{http://arxiv.org/abs/0903.1369}.
+
+\bibitem[Sembach et~al.(2001)Sembach, Howk, Savage, Shull, and
+  Oegerle]{sembach_far_2001}
+K.~R. Sembach, J.~C. Howk, B.~D. Savage, J.~M. Shull, and W.~R. Oegerle.
+\newblock Far ultraviolet spectroscopy of the intergalactic and interstellar
+  absorption toward 3c 273.
+\newblock \emph{The Astrophysical Journal}, 561\penalty0 (2):\penalty0
+  573--599, 2001.
+\newblock ISSN 0004-637X, 1538-4357.
+\newblock \doi{10.1086/323408}.
+\newblock URL \url{http://arxiv.org/abs/astro-ph/0108047}.
+
+\bibitem[Sharpee et~al.(2003)Sharpee, Williams, Baldwin, and van
+  Hoof]{sharpee_introducing_2003}
+B.~Sharpee, R.~Williams, J.~A. Baldwin, and P.~A.~M. van Hoof.
+\newblock Introducing {EMILI}: Computer aided emission line identification.
+\newblock \emph{The Astrophysical Journal Supplement Series}, 149\penalty0
+  (1):\penalty0 157--187, 2003.
+\newblock ISSN 0067-0049, 1538-4365.
+\newblock \doi{10.1086/378321}.
+\newblock URL \url{http://arxiv.org/abs/astro-ph/0307053}.
+
+\bibitem[Sigurdsson et~al.(2004)Sigurdsson, Philipsen, Hansen, Larsen,
+  Gniadecka, and Wulf]{sigurdsson_detection_2004}
+S.~Sigurdsson, P.A. Philipsen, L.K. Hansen, J.~Larsen, M.~Gniadecka, and H.C.
+  Wulf.
+\newblock Detection of skin cancer by classification of raman spectra.
+\newblock \emph{{IEEE} Transactions on Biomedical Engineering}, 51\penalty0
+  (10):\penalty0 1784--1793, 2004.
+\newblock ISSN 0018-9294.
+\newblock \doi{10.1109/TBME.2004.831538}.
+
+\bibitem[Skoda et~al.(2014)Skoda, D., N., Castro, Andresic, and
+  Jenness]{skoda_spectroscopic_2014}
+P.~Skoda, Peter~W. D., N., M.~Castro, D.~Andresic, and T.~Jenness.
+\newblock Spectroscopic analysis in the virtual observatory environment with
+  {SPLAT}-{VO}.
+\newblock \emph{Astronomy and Computing}, 7-8, 2014.
+\newblock ISSN 22131337.
+\newblock \doi{10.1016/j.ascom.2014.06.001}.
+\newblock URL \url{http://arxiv.org/abs/1407.1765}.
+
+\bibitem[Smith et~al.(2015)Smith, Zijlstra, and Fuller]{smith_molecular_2015}
+C.~L. Smith, A.~A. Zijlstra, and G.~A. Fuller.
+\newblock A molecular line survey of a sample of {AGB} stars and planetary
+  nebulae.
+\newblock \emph{{arXiv}:1508.05014 [astro-ph]}, 2015.
+\newblock URL \url{http://arxiv.org/abs/1508.05014}.
+
+\bibitem[Smith(2005)]{smith_mr_sp_2005}
+Dent~G. Smith, E.
+\newblock Modern raman spectroscopy: A practical approach, 2005.
+\newblock URL
+  \url{http://www.wiley.com/WileyCDA/WileyTitle/productCd-0471497940.html}.
+
+\bibitem[Struve(1989)]{struve_fundamentals_1989}
+W.~S. Struve.
+\newblock \emph{Fundamentals of Molecular Spectroscopy}.
+\newblock Wiley-Interscience, 1 edition edition, 1989.
+\newblock ISBN 9780471854241.
+
+\bibitem[Turlach et~al.(2005)Turlach, Venables, and
+  Wright]{turlach_simultaneous_2005}
+B.~A. Turlach, W.~N. Venables, and S.~J. Wright.
+\newblock Simultaneous variable selection.
+\newblock \emph{Technometrics}, 47\penalty0 (3):\penalty0 349--363, 2005.
+\newblock ISSN 0040-1706.
+\newblock \doi{10.1198/004017005000000139}.
+\newblock URL \url{http://dx.doi.org/10.1198/004017005000000139}.
+
+\bibitem[Vastel et~al.(2015)Vastel, Bottinelli, Caux, Glorian, and
+  Boiziot]{vastel_cassis_2015}
+C.~Vastel, S.~Bottinelli, E.~Caux, J.-M. Glorian, and M.~Boiziot.
+\newblock {CASSIS}: a tool to visualize and analyse instrumental and synthetic
+  spectra.
+\newblock 2015.
+\newblock URL \url{http://adsabs.harvard.edu/abs/2015sf2a.conf..313V}.
+
+\bibitem[Walsh et~al.(2003)Walsh, Péquignot, Morisset, Storey, Sharpee,
+  Baldwin, van Hoof, and Williams]{walsh_deep_2003}
+J.~R. Walsh, D.~Péquignot, C.~Morisset, P.~J. Storey, B.~Sharpee, J.~Baldwin,
+  P.~A.~M. van Hoof, and R.~E. Williams.
+\newblock A deep {UV}-blue planetary nebula template spectrum from {NGC} 7027.
+\newblock volume 209, page 337, 2003.
+\newblock ISBN 1743-9221.
+\newblock URL \url{http://adsabs.harvard.edu/abs/2003IAUS..209..337W}.
+
+\bibitem[Wright et~al.(2010)Wright, Ma, Mairal, Sapiro, Huang, and
+  Yan]{wright_sparse_2010}
+J.~Wright, Yi~Ma, J.~Mairal, G.~Sapiro, T.S. Huang, and Shuicheng Yan.
+\newblock Sparse representation for computer vision and pattern recognition.
+\newblock \emph{Proceedings of the {IEEE}}, 98\penalty0 (6):\penalty0
+  1031--1044, 2010.
+\newblock ISSN 0018-9219.
+\newblock \doi{10.1109/JPROC.2010.2044470}.
+
+\bibitem[Xiang et~al.(2011)Xiang, Xu, and Ramadge]{xiang_learning_2011}
+Zhen~J. Xiang, Hao Xu, and Peter~J Ramadge.
+\newblock Learning sparse representations of high dimensional data on large
+  scale dictionaries.
+\newblock In J.~Shawe-Taylor, R.~S. Zemel, P.~L. Bartlett, F.~Pereira, and
+  K.~Q. Weinberger, editors, \emph{Advances in Neural Information Processing
+  Systems 24}, pages 900--908. Curran Associates, Inc., 2011.
+\newblock URL
+  \url{http://papers.nips.cc/paper/4400-learning-sparse-representations-of-high-dimensional-data-on-large-scale-dictionaries.pdf}.
+
+\end{thebibliography}

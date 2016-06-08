@@ -1,0 +1,25 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: draft-andres.aux
+The style file: plainnat.bst
+Database file #1: draft-andresNotes.bib
+Database file #2: paper-meta.bib
+Warning--entry type for "smith_mr_sp_2005" isn't style-file defined
+--line 466 of file paper-meta.bib
+Warning--I didn't find a database entry for ""
+Too many commas in name 1 of "Smith, E. , Dent, G." for entry smith_mr_sp_2005
+while executing---line 1347 of file plainnat.bst
+Too many commas in name 1 of "Smith, E. , Dent, G." for entry smith_mr_sp_2005
+while executing---line 1347 of file plainnat.bst
+Warning--empty booktitle in caux_cassis_2011
+Warning--empty booktitle in gusten_apex
+Warning--empty booktitle in howley_effect_2005
+Warning--empty booktitle in madden_classification_2005
+Warning--empty booktitle in mallat2009
+Warning--empty booktitle in remijan_splatalogue_2010
+Warning--empty journal in remijan_splatalogue:_2008
+Too many commas in name 1 of "Smith, E. , Dent, G." for entry smith_mr_sp_2005
+while executing---line 1429 of file plainnat.bst
+Too many commas in name 1 of "Smith, E. , Dent, G." for entry smith_mr_sp_2005
+while executing---line 1429 of file plainnat.bst
+Warning--empty booktitle in vastel_cassis_2015
+Warning--empty booktitle in walsh_deep_2003
+(There were 4 error messages)

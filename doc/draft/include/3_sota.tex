@@ -1,0 +1,72 @@
+\section{Related work} \label{sec:related_work}
+
+% Present Tense
+\begin{comment}
+    - What is currently being done
+    - Manual Process Problems
+    - Factors that make this problem non-trivial
+    - Semi-Automatic Method
+    - Ramadan Spectroscopy
+    - Physics Models
+    - Utility of another approach (this approach)
+\end{comment}
+
+% What is currently being done
+In the last years, detection of spectral lines has been following traditional methods, limited to manual analysis of data.
+This analysis primarily involves the estimation of frequencies associated to peaks in spectra, together with the mapping of those peaks
+to theoretical frequencies.
+After determining the presence of the lines at different frequencies, they associate those lines to certain isotope energy states.
+This non-automated process lacks of scalability, making impossible to apply this method for large databases \citep{schilke_line_2001}.
+
+Spectra classification is found in other areas such as classification of substances, determination of raw material purity or even detection of skin cancer \citep{sigurdsson_detection_2004}.
+Supervised machine learning classifiers have been proposed to separate different types of substances within spectra \citep{howley_effect_2005}, but they are not designed to identify individual lines.
+
+Several methods specialize in the individual detection of lines along the spectra.
+For example, EMILI software identifies spectral lines considering three features:
+i) wavelength agreement with observed line, 
+ii) expected flux from relative computed intensities and
+iii) co-presence of other confirming lines.
+It assign numerical values to each criteria and calculates a score with them, both for observed lines and candidate theoretical lines.
+Then, probabilities are calculated for each candidate line.
+The near its score, the higher its probability \citep{sharpee_introducing_2003}.
+
+% Ajustar funciones para modelar el ancho optico de las lineas es una tecnica muy comun de uso extendido y actual.
+To fit functions to shape the optical depth of lines is a very common technique still widely used.
+% Funciones Gaussianas y Top-Hat pueden ser ajustadas a través de la estimación de tanto el fwmh como la intensidad de las lineas]
+Gaussian functions \citep{fuller_thermal_1993, nummelin_three-position_2000} or top-hat functions \citep{smith_molecular_2015} are adjusted through the estimation of both the full width maximum height ($fwmh$) and peak intensities for line profiling.
+% Un parametro de 'desplazamiento de la línea base residual' es determinado para diferenciar lineas del ruido de la señal.
+Then, a residual baseline offset is set to differentiate lines from signal artifacts.
+
+Tools that fits more complex functions to spectra are 
+XCLASS \footnote{\url{https://www.astro.uni-koeln.de/projects/schilke/XCLASS}},
+CASSIS \footnote{\url{http://cassis.cesr.fr}} and
+WEEDS \footnote{\url{https://www.iram.fr/IRAMFR/GILDAS}}.
+These tools fit different functions along the spectra to estimate several parameters of observed lines.
+They build a line list fitting of all the transitions of an isotope through two steps:
+i) the fit of the line, 
+ii) the fit of the baseline.
+For fitting of lines, CASSIS determines optimal parameter functions that allows to simultaneously fit all peaks along spectra. Gauss, Lorentz, Sinc and Voight are examples of functions for fitting lines. 
+Then, in step ii), weaker lines are discarded fitting a baseline function, which can be sinusoidal or polynomial functions \citep{caux_cassis_2011,vastel_cassis_2015}
+
+These tools make use of catalogs of spectral lines that contains the theoretical frequencies of all known lines for each isotope.
+Those catalogs are publicly available, and are constructed by the data of
+(JPL \footnote{\url{http://spec.jpl.nasa.gov}},
+CDMS \footnote{\url{http://www.astro.uni-koeln.de/cdms}},
+Toyama \footnote{\url{http://www.sci.u-toyama.ac.jp/phys/4ken/atla}}).
+Unfortunately, a lot of human effort is needed just to identify spectral lines in this way as \citep{schilke_analysis_2011} states.
+
+Furthermore, chemical and physical models takes into account the source structure through a modelling, using complex simulations to reproduce stars formation and later, spectral lines. These simulations involve two main steps:
+i) 3D chemical models and 
+ii) radioactive transfer models \citep{schilke_analysis_2011}.
+In step i), the structure of object is modeled using molecular abundance, which is used either from provided values or from chemical models.
+An example of programs to get molecular abundance is RATRAN \citep{hogerheijde_accelerated_2000}.
+In step ii), the structure temperature of cores are estimated using Monte Carlo.
+Both \textbf{radme-3d} \footnote{\url{http://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/}}
+and LIME \citep{brinch_lime_2010}
+use this sampling simulation assuming LTE approximation.
+The first estimates object temperature, while the latter receives it as a parameter.
+An analysis of line shapes and temperature modeling allow to assign them to known isotope lines.
+
+Regarding signal reconstruction models, approaches that compares observed spectra with synthetic modelling have been proposed in \citep{pequignot_deep_1996, walsh_deep_2003}.
+These models have a rigorous treatment of blending and have the flexibility to deal with wavelength uncertainty from databases \citep{sharpee_introducing_2003}. 
+Techniques described above are in general not scalable, do not rely on automatic processes or are based on complex theoretical underlying models. 
