@@ -232,6 +232,98 @@ def gen_words(molist, cube_params, dual_words=False):
     dictionary.index = get_freq_index_from_params(cube_params)
     return dictionary
 
+def gen_all_words(cube_params, dual_words=False):
+    log = sys.stdout
+    dbpath = 'ASYDO'
+    dictionary = pd.DataFrame([])
+
+    freq_init = cube_params['freq'] - cube_params['spe_bw']/2.0
+    freq_end = cube_params['freq'] + cube_params['spe_bw']/2.0
+
+    dbpath = 'ASYDO'
+    dba = packages.asydopy.db.lineDB(dbpath)
+    dba.connect()
+    select = "SELECT * FROM Lines WHERE NOT SPECIES LIKE '%-%' AND FREQ > " + str(freq_init) + " AND FREQ < " + str(freq_end)
+    molist_present = dba.executeSQL(select)
+    dba.disconnect()
+
+    last_code = ""
+    last_freq = 0
+
+    for tupla in molist_present:
+        iso = tupla[1]
+        univ=packages.display.vu.Universe(log)
+        univ.create_source('word-'+ iso)
+        s_x = 1
+        s_y = 1
+        rot = 0
+        s_f=cube_params['s_f']
+        angle=math.pi
+        model=packages.display.vu.IMCM(
+            log,dbpath,iso,temp,
+            ('normal',s_x, s_y, angle),
+            ('skew', cube_params['s_f'], cube_params['s_a']),
+            ('linear', angle, rot))
+        model.set_radial_velocity(rvel)
+        univ.add_component('word-'+ iso, model)
+        lines = univ.gen_cube('observerd',
+                              cube_params['freq'],
+                              cube_params['spe_res'],
+                              cube_params['spe_bw'])
+        if len(lines.hdulist) > 1:
+
+            if(not dual_words):
+                for line in lines.hdulist[1].data:
+                    word =  np.array(np.zeros(len(lines.get_spectrum())))
+                    '''
+                        line[0] : line_code alias
+                        line[1] : relative freq at the window
+                    '''
+                    word[line[1]] = 1
+                    dictionary[line[0]] = word
+
+            else:
+                for line in lines.hdulist[1].data:
+
+                    last_iso = last_code.split('-')[0]
+                    distance = float(line[0].split('-')[1][1:]) - last_freq
+
+                    if(iso != last_iso or \
+                     (iso == last_iso and distance >= 1)):
+
+                        word = np.array(np.zeros(len(lines.get_spectrum())))
+                        '''
+                            line[0] : line_code alias
+                            line[1] : relative freq at the window
+                        '''
+                        word[line[1]] = 1
+                        dictionary[line[0]] = word
+
+                        last_code = line[0]
+
+                    else:
+                        #
+                        dictionary.pop(last_code)
+                        word[line[1]] = 1
+                        # dictionary[line[0]] = word
+
+                        dual_alias = last_code + "&&" + \
+                                     line[0].split('-')[1]
+                        #
+                        dictionary[dual_alias] = word
+                        # dictionary[dual_alias] = np.sum([dictionary\
+                        #                     [last_code], word], axis=0)
+                        # if '&&' in last_code:
+                        #     dictionary.pop(last_code)
+
+                        last_code = dual_alias
+
+                    last_freq = float(line[0].split('-')[1][1:])
+
+    dictionary.index = get_freq_index_from_params(cube_params)
+    return dictionary
+
+
 def get_freq_index_from_params(cube_params):
     freq_border = [int(cube_params['freq'] - cube_params['spe_bw'] / 2.0),
                     int(cube_params['freq'] + cube_params['spe_bw'] / 2.0)]
@@ -284,6 +376,32 @@ def get_fortran_array(input):
     fort_array = np.asfortranarray(np.asmatrix(input)).T
     fort_array = np.asfortranarray(fort_array, dtype= np.double)
     return fort_array
+
+def calculate_probability(alpha, freq, dictionary_recal):
+
+    alpha_columns = pd.Series(alpha[:,0])
+    alpha_columns.index = dictionary_recal.columns
+    alpha_columns = alpha_columns[alpha_columns > 0]
+
+    tot_sum = 0
+    aux_alpha = pd.Series([])
+    for line_name in alpha_columns.index:
+        if dictionary_recal[line_name].loc[freq] != 0:
+            if alpha_columns[line_name] > 1:
+                if (line_name in aux_alpha.index):
+                    aux_alpha[line_name] += 1/alpha_columns[line_name]
+                else:
+                    aux_alpha[line_name] = 1/alpha_columns[line_name]
+                tot_sum += 1/alpha_columns[line_name]
+            else:
+                if (line_name in aux_alpha.index):
+                    aux_alpha[line_name] += alpha_columns[line_name]
+                else:
+                    aux_alpha[line_name] = alpha_columns[line_name]
+                tot_sum += alpha_columns[line_name]
+
+            aux_alpha = aux_alpha/tot_sum
+    return aux_alpha
 
 def fill_precision(results, confusion_matrix,):
     for column in confusion_matrix.columns:
