@@ -16,8 +16,8 @@
 \end{comment}
 
 %  Introduction: What is expected
-In this section, we present and analyze the experimental results obtained.
-The idea behind the tests is to simulate data cubes using a known isotope list and then, to retrieve of as much elements of the known list as possible.
+In this section, we present and analyze the experimental results.
+The idea behind these tests is to simulate data cubes using a known isotope list and then to retrieve of as much elements of the known list as possible.
 For each band, the list of all theoretical isotopes in that range are searched in Splatalogue, and a subset of them is selected randomly to simulate data cubes.
 
 \subsection{Measure of accuracy}
@@ -139,3 +139,60 @@ False double peaks product of artifacts are handled by the algorithm and it dete
 		\label{fig:doublepeak}
 	\end{center}
 \end{figure}
+
+\subsection{Real Data}
+
+Additionally to synthetic results, real data from ALMA is used to test the algorithm's behavior.
+The experiments consists in the analysis over product cubes to predict isotopes associated to molecules observed for each cube.
+The used cubes are product of a deconvolution using CASA task CLEAN as explained at \cite{higuchi_iras_2015}.
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.225\textwidth]{images/ds9}
+		\caption{ Example of used data cubes, slice of $IRAS16547-4247\_Jet\_CH3OH7-6.clean$ from project ALMA project \#2011.0.00419.S.  }
+		\label{fig:ds9}
+	\end{center}
+\end{figure}
+
+In this case, the high density of theoretical frequencies plays a major role in the difficulty of the prediction.
+With synthetically data, a subset of isotopes were selected, but with real data, all the Splatalogue lines were include to test the process in a real world scenario.
+
+The algorithm is able to predict lines for $CH_3OH_7 (7-6)$, but the algorithm is not able to predict other isotopes of interest.
+The algorithm gives a list and a probability of presence in each cube. In table \ref{tab:real-results} we present only predicted frequencies associated to the isotopes of interest.
+
+The process of the predicted isotope can be seen in figure \ref{fig:experiment}.
+The amount of theoretical frequencies that must be filtered in order to make a prediction can be seen explicitly in the visual representation of the process.
+
+% Real Data
+\begin{center}
+	\begin{table}
+		\begin{tabular}{ | l | l | l | }
+			\hline
+			{\bf File } & {\bf Predicted frequencies }  \\ \hline
+			$13CH3CN19-18$ 				& - \\ \hline
+			$CH3OH7-6$ 					& 338486.337 and 338486.337, \\
+					 					& 338583.195, 338639.939 \\ \hline
+			$CS_v1\_7-6$ 				& - \\ \hline
+			$SO2$ 		 				& -  \\ \hline
+			$SO2-28\_2\_26-28\_1\_27$ 	& -   \\ \hline
+			\hline
+		\end{tabular}
+		\caption{ Predicted frequencies associated to the molecules of interest for each clean cube for ALMA project \#2011.0.00419.S.}
+		\label{tab:real-results}
+	\end{table}
+\end{center}
+
+\begin{figure}
+	\begin{center}
+		% \includegraphics[width=\textwidth]{images/process}
+		\label{fig:experiment}	
+				\includegraphics[width=0.5\textwidth]{images/experiment}%
+		\caption{Data cube example following the steps previously explained.}
+	\end{center}
+\end{figure}
+
+
+
+
+
+

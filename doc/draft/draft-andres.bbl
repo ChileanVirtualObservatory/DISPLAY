@@ -1,4 +1,4 @@
-\begin{thebibliography}{43}
+\begin{thebibliography}{44}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -132,6 +132,17 @@ R.~Gusten, R.~S. Booth, C.~Cesarsky, K.~M. Menten, C.~Agurto, M.~Anciaux,
 \newblock volume 6267, pages 626714--626714--26, 2006.
 \newblock \doi{10.1117/12.670798}.
 \newblock URL \url{http://dx.doi.org/10.1117/12.670798}.
+
+\bibitem[Higuchi et~al.()Higuchi, Saigo, Chibueze, Sanhueza, Takakuwa, and
+  Garay]{higuchi_iras_2015}
+Aya~E. Higuchi, Kazuya Saigo, James~O. Chibueze, Patricio Sanhueza, Shigehisa
+  Takakuwa, and Guido Garay.
+\newblock {IRAS} 16547–4247: A new candidate of a protocluster unveiled with
+  {ALMA}.
+\newblock 798\penalty0 (2):\penalty0 L33.
+\newblock ISSN 2041-8205.
+\newblock \doi{10.1088/2041-8205/798/2/L33}.
+\newblock URL \url{http://stacks.iop.org/2041-8205/798/i=2/a=L33}.
 
 \bibitem[Ho et~al.(2004)Ho, Moran, and Lo]{ho_submillimeter_2004}
 Paul T.~P. Ho, James~M. Moran, and Kwok~Yung Lo.

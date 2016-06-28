@@ -125,7 +125,6 @@
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(e)}{\ignorespaces {}}}{6}{figure.4}}
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(f)}{\ignorespaces {}}}{6}{figure.4}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.3}Recalibration}{6}{subsubsection.5.1.3}}
-\citation{precision_recall}
 \newlabel{eq:closer_candidate}{{3}{7}{Recalibration}{equation.5.3}{}}
 \newlabel{eq:expansion}{{4}{7}{Recalibration}{equation.5.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Prediction}{7}{subsection.5.2}}
@@ -133,34 +132,44 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Probability of prediction}{7}{subsubsection.5.2.1}}
 \newlabel{eq:alpha}{{5}{7}{Probability of prediction}{equation.5.5}{}}
 \newlabel{eq:probability}{{6}{7}{Probability of prediction}{equation.5.6}{}}
+\newlabel{eq:multiple}{{7}{7}{Probability of prediction}{equation.5.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces The schematic convergence of predictions from a data cube, where 4 spectras (blue pixels in frequency deep) are analyzed independently, and their results merged into one (red).}}{7}{figure.6}}
+\newlabel{fig:probabilities}{{6}{7}{The schematic convergence of predictions from a data cube, where 4 spectras (blue pixels in frequency deep) are analyzed independently, and their results merged into one (red)}{figure.6}{}}
 \@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Proposed algorithm}}{7}{algocf.1}}
 \newlabel{alg:algorithm}{{1}{7}{Probability of prediction}{algocf.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Training/Test set}{7}{subsection.5.3}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Experimental results}{7}{section.6}}
-\newlabel{sec:results}{{6}{7}{Experimental results}{section.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Measure of accuracy}{7}{subsection.6.1}}
+\citation{precision_recall}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Experimental results}{8}{section.6}}
+\newlabel{sec:results}{{6}{8}{Experimental results}{section.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Measure of accuracy}{8}{subsection.6.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Prediction results}{8}{subsection.6.2}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces  The f-score for different noise level (bands) and width of the lines.}}{8}{table.1}}
 \newlabel{tab:results}{{1}{8}{The f-score for different noise level (bands) and width of the lines}{table.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Prediction results}{8}{subsection.6.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces  Modified confusion matrices for 20 experiments for data cubes with fixed line width at band 9. Predictions tend to be on the diagonal because of the algorithm preference for closer theoretical line's frequencies.}}{8}{figure.7}}
+\newlabel{fig:confusion_matrix}{{7}{8}{Modified confusion matrices for 20 experiments for data cubes with fixed line width at band 9. Predictions tend to be on the diagonal because of the algorithm preference for closer theoretical line's frequencies}{figure.7}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Signal to noise effect in predictions}{8}{subsection.6.3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Variable width effect in predictions}{8}{subsection.6.4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces  Modified confusion matrices for 20 experiments for data cubes with fixed line width at band 9. Predictions tend to be on the diagonal because of the algorithm preference for closer theoretical line's frequencies.}}{8}{figure.6}}
-\newlabel{fig:confusion_matrix}{{6}{8}{Modified confusion matrices for 20 experiments for data cubes with fixed line width at band 9. Predictions tend to be on the diagonal because of the algorithm preference for closer theoretical line's frequencies}{figure.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces  The measures of accuracy, precision and recall obtained for fixed line width cubes, variable line width and overall results for ALMA band 9.}}{8}{figure.7}}
-\newlabel{fig:results1}{{7}{8}{The measures of accuracy, precision and recall obtained for fixed line width cubes, variable line width and overall results for ALMA band 9}{figure.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces  The measures of accuracy, precision and recall obtained for fixed line width cubes, variable line width and overall results for ALMA band 7. }}{8}{figure.8}}
-\newlabel{fig:results2}{{8}{8}{The measures of accuracy, precision and recall obtained for fixed line width cubes, variable line width and overall results for ALMA band 7}{figure.8}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces  Histograms of results obtained for the test performed for precision, recall and f-score for fixed line width (red) vs variable line width (blue) in Band 9.}}{9}{figure.9}}
-\newlabel{fig:hist1}{{9}{9}{Histograms of results obtained for the test performed for precision, recall and f-score for fixed line width (red) vs variable line width (blue) in Band 9}{figure.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces  The measures of accuracy, precision and recall obtained for fixed line width cubes, variable line width and overall results for ALMA band 9.}}{9}{figure.8}}
+\newlabel{fig:results1}{{8}{9}{The measures of accuracy, precision and recall obtained for fixed line width cubes, variable line width and overall results for ALMA band 9}{figure.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces  The measures of accuracy, precision and recall obtained for fixed line width cubes, variable line width and overall results for ALMA band 7. }}{9}{figure.9}}
+\newlabel{fig:results2}{{9}{9}{The measures of accuracy, precision and recall obtained for fixed line width cubes, variable line width and overall results for ALMA band 7}{figure.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces  Histograms of results obtained for the test performed for precision, recall and f-score for fixed line width (red) vs variable line width (blue) in Band 9.}}{9}{figure.10}}
+\newlabel{fig:hist1}{{10}{9}{Histograms of results obtained for the test performed for precision, recall and f-score for fixed line width (red) vs variable line width (blue) in Band 9}{figure.10}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Complex cases}{9}{subsection.6.5}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces  Blending case }}{9}{figure.10}}
-\newlabel{fig:blending}{{10}{9}{Blending case}{figure.10}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces  Histograms of results obtained for the test performed for precision, recall and f-score for fixed line width (yellow) vs variable line width (green) in Band 7.}}{9}{figure.11}}
-\newlabel{fig:hist2}{{11}{9}{Histograms of results obtained for the test performed for precision, recall and f-score for fixed line width (yellow) vs variable line width (green) in Band 7}{figure.11}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces  Double peaks for single Line }}{9}{figure.12}}
-\newlabel{fig:doublepeak}{{12}{9}{Double peaks for single Line}{figure.12}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{9}{section.7}}
-\newlabel{sec:conclusions}{{7}{9}{Conclusion}{section.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces  Blending case }}{9}{figure.11}}
+\newlabel{fig:blending}{{11}{9}{Blending case}{figure.11}{}}
+\citation{higuchi_iras_2015}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces  Histograms of results obtained for the test performed for precision, recall and f-score for fixed line width (yellow) vs variable line width (green) in Band 7.}}{10}{figure.12}}
+\newlabel{fig:hist2}{{12}{10}{Histograms of results obtained for the test performed for precision, recall and f-score for fixed line width (yellow) vs variable line width (green) in Band 7}{figure.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces  Double peaks for single Line }}{10}{figure.13}}
+\newlabel{fig:doublepeak}{{13}{10}{Double peaks for single Line}{figure.13}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.6}Real Data}{10}{subsection.6.6}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces  Predicted frequencies associated to the molecules of interest for each clean cube for ALMA project \#2011.0.00419.S.}}{10}{table.2}}
+\newlabel{tab:real-results}{{2}{10}{Predicted frequencies associated to the molecules of interest for each clean cube for ALMA project \#2011.0.00419.S}{table.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces  Example of used data cubes, slice of $IRAS16547-4247\_Jet\_CH3OH7-6.clean$ from project ALMA project \#2011.0.00419.S. }}{10}{figure.14}}
+\newlabel{fig:ds9}{{14}{10}{Example of used data cubes, slice of $IRAS16547-4247\_Jet\_CH3OH7-6.clean$ from project ALMA project \#2011.0.00419.S}{figure.14}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{10}{section.7}}
+\newlabel{sec:conclusions}{{7}{10}{Conclusion}{section.7}{}}
 \bibdata{draft-andresNotes,paper-meta}
 \bibcite{becklin_stratospheric_2005}{{1}{2006}{{Becklin}}{{}}}
 \bibcite{brinch_lime_2010}{{2}{2010}{{Brinch and Hogerheijde}}{{}}}
@@ -174,37 +183,40 @@
 \bibcite{eguchi_superluminal_2013}{{10}{2013}{{Eguchi}}{{}}}
 \bibcite{fuller_thermal_1993}{{11}{1993}{{Fuller and Myers}}{{}}}
 \bibcite{gusten_apex}{{12}{2006}{{Gusten et~al.}}{{Gusten, Booth, Cesarsky, Menten, Agurto, Anciaux, Azagra, Belitsky, Belloche, Bergman, De~Breuck, Comito, Dumke, Duran, Esch, Fluxa, Greve, Hafok, Häupl, Helldner, Henseler, Heyminck, Johansson, Kasemann, Klein, Korn, Kreysa, Kurz, Lapkin, Leurini, Lis, Lundgren, Mac-Auliffe, Martinez, Melnick, Morris, Muders, Nyman, Olberg, Olivares, Pantaleev, Patel, Pausch, Philipp, Philipps, Sridharan, Polehampton, Reveret, Risacher, Roa, Sauer, Schilke, Santana, Schneider, Sepulveda, Siringo, Spyromilio, Stenvers, van~der Tak, Torres, Vanzi, Vassilev, Weiss, Willmeroth, Wunsch, and Wyrowski}}}
-\bibcite{ho_submillimeter_2004}{{13}{2004}{{Ho et~al.}}{{Ho, Moran, and Lo}}}
-\bibcite{hogerheijde_accelerated_2000}{{14}{2000}{{Hogerheijde and van~der Tak}}{{}}}
-\bibcite{howley_effect_2005}{{15}{2005}{{Howley et~al.}}{{Howley, Madden, O~Connell, and Ryder}}}
-\bibcite{madden_classification_2005}{{16}{2005}{{Madden et~al.}}{{Madden, Leger, Ryder, Howley, and O~Connell}}}
-\@writefile{toc}{\contentsline {section}{References}{10}{section*.2}}
-\bibcite{mairal_optimization_2013}{{17}{2013}{{Mairal}}{{}}}
-\bibcite{mairal_online_2009}{{18}{2009}{{Mairal et~al.}}{{Mairal, Bach, Ponce, and Sapiro}}}
-\bibcite{mallat2009}{{19}{2009}{{Mallat}}{{}}}
-\bibcite{maret_weeds:_2010}{{20}{2010}{{Maret et~al.}}{{Maret, Hily-Blant, Pety, Bardeau, and Reynier}}}
-\bibcite{muller_cologne_2005}{{21}{2005}{{M\"uller et~al.}}{{M\"uller, Schlöder, Stutzki, and Winnewisser}}}
-\bibcite{muller_rotational_2008}{{22}{2008}{{M\"uller et~al.}}{{M\"uller, Belloche, Menten, Comito, and Schilke}}}
-\bibcite{nummelin_three-position_1998}{{23}{1998}{{Nummelin et~al.}}{{Nummelin, Bergman, Hjalmarson, Friberg, Irvine, Millar, Ohishi, and Saito}}}
-\bibcite{nummelin_three-position_2000}{{24}{2000}{{Nummelin et~al.}}{{Nummelin, Bergman, Hjalmarson, Friberg, Irvine, Millar, Ohishi, and Saito}}}
-\bibcite{pequignot_deep_1996}{{25}{1996}{{Pequignot}}{{}}}
-\bibcite{precision_recall}{{26}{1955}{{Perry et~al.}}{{Perry, Kent, and Berry}}}
-\bibcite{remijan_splatalogue_2010}{{27}{2010}{{Remijan}}{{}}}
-\bibcite{remijan_splatalogue:_2008}{{28}{2008}{{Remijan and Markwick-Kemper}}{{}}}
-\bibcite{schilke_line_2001}{{29}{2001}{{Schilke et~al.}}{{Schilke, Benford, Hunter, Lis, and Phillips}}}
-\bibcite{schilke_analysis_2011}{{30}{2011}{{Schilke et~al.}}{{Schilke, Rolffs, and Comito}}}
-\bibcite{schuller_atlasgal_2009}{{31}{2009}{{Schuller et~al.}}{{Schuller, Menten, Contreras, Wyrowski, Schilke, Bronfman, Henning, Walmsley, Beuther, Bontemps, Cesaroni, Deharveng, Garay, Herpin, Lefloch, Linz, Mardones, Minier, Molinari, Motte, Nyman, Reveret, Risacher, Russeil, Schneider, Testi, Troost, Vasyunina, Wienen, Zavagno, Kovacs, Kreysa, Siringo, and Weiss}}}
-\bibcite{sembach_far_2001}{{32}{2001}{{Sembach et~al.}}{{Sembach, Howk, Savage, Shull, and Oegerle}}}
-\bibcite{sharpee_introducing_2003}{{33}{2003}{{Sharpee et~al.}}{{Sharpee, Williams, Baldwin, and van Hoof}}}
-\bibcite{sigurdsson_detection_2004}{{34}{2004}{{Sigurdsson et~al.}}{{Sigurdsson, Philipsen, Hansen, Larsen, Gniadecka, and Wulf}}}
-\bibcite{skoda_spectroscopic_2014}{{35}{2014}{{Skoda et~al.}}{{Skoda, D., N., Castro, Andresic, and Jenness}}}
-\bibcite{smith_molecular_2015}{{36}{2015}{{Smith et~al.}}{{Smith, Zijlstra, and Fuller}}}
-\bibcite{smith_mr_sp_2005}{{37}{2005}{{Smith}}{{}}}
-\bibcite{struve_fundamentals_1989}{{38}{1989}{{Struve}}{{}}}
-\bibcite{turlach_simultaneous_2005}{{39}{2005}{{Turlach et~al.}}{{Turlach, Venables, and Wright}}}
-\bibcite{vastel_cassis_2015}{{40}{2015}{{Vastel et~al.}}{{Vastel, Bottinelli, Caux, Glorian, and Boiziot}}}
-\bibcite{walsh_deep_2003}{{41}{2003}{{Walsh et~al.}}{{Walsh, Péquignot, Morisset, Storey, Sharpee, Baldwin, van Hoof, and Williams}}}
-\bibcite{wright_sparse_2010}{{42}{2010}{{Wright et~al.}}{{Wright, Ma, Mairal, Sapiro, Huang, and Yan}}}
-\bibcite{xiang_learning_2011}{{43}{2011}{{Xiang et~al.}}{{Xiang, Xu, and Ramadge}}}
+\bibcite{higuchi_iras_2015}{{13}{}{{Higuchi et~al.}}{{Higuchi, Saigo, Chibueze, Sanhueza, Takakuwa, and Garay}}}
+\bibcite{ho_submillimeter_2004}{{14}{2004}{{Ho et~al.}}{{Ho, Moran, and Lo}}}
+\newlabel{fig:experiment}{{15}{11}{Real Data}{figure.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Data cube example following the steps previously explained.}}{11}{figure.15}}
+\@writefile{toc}{\contentsline {section}{References}{11}{section*.2}}
+\bibcite{hogerheijde_accelerated_2000}{{15}{2000}{{Hogerheijde and van~der Tak}}{{}}}
+\bibcite{howley_effect_2005}{{16}{2005}{{Howley et~al.}}{{Howley, Madden, O~Connell, and Ryder}}}
+\bibcite{madden_classification_2005}{{17}{2005}{{Madden et~al.}}{{Madden, Leger, Ryder, Howley, and O~Connell}}}
+\bibcite{mairal_optimization_2013}{{18}{2013}{{Mairal}}{{}}}
+\bibcite{mairal_online_2009}{{19}{2009}{{Mairal et~al.}}{{Mairal, Bach, Ponce, and Sapiro}}}
+\bibcite{mallat2009}{{20}{2009}{{Mallat}}{{}}}
+\bibcite{maret_weeds:_2010}{{21}{2010}{{Maret et~al.}}{{Maret, Hily-Blant, Pety, Bardeau, and Reynier}}}
+\bibcite{muller_cologne_2005}{{22}{2005}{{M\"uller et~al.}}{{M\"uller, Schlöder, Stutzki, and Winnewisser}}}
+\bibcite{muller_rotational_2008}{{23}{2008}{{M\"uller et~al.}}{{M\"uller, Belloche, Menten, Comito, and Schilke}}}
+\bibcite{nummelin_three-position_1998}{{24}{1998}{{Nummelin et~al.}}{{Nummelin, Bergman, Hjalmarson, Friberg, Irvine, Millar, Ohishi, and Saito}}}
+\bibcite{nummelin_three-position_2000}{{25}{2000}{{Nummelin et~al.}}{{Nummelin, Bergman, Hjalmarson, Friberg, Irvine, Millar, Ohishi, and Saito}}}
+\bibcite{pequignot_deep_1996}{{26}{1996}{{Pequignot}}{{}}}
+\bibcite{precision_recall}{{27}{1955}{{Perry et~al.}}{{Perry, Kent, and Berry}}}
+\bibcite{remijan_splatalogue_2010}{{28}{2010}{{Remijan}}{{}}}
+\bibcite{remijan_splatalogue:_2008}{{29}{2008}{{Remijan and Markwick-Kemper}}{{}}}
+\bibcite{schilke_line_2001}{{30}{2001}{{Schilke et~al.}}{{Schilke, Benford, Hunter, Lis, and Phillips}}}
+\bibcite{schilke_analysis_2011}{{31}{2011}{{Schilke et~al.}}{{Schilke, Rolffs, and Comito}}}
+\bibcite{schuller_atlasgal_2009}{{32}{2009}{{Schuller et~al.}}{{Schuller, Menten, Contreras, Wyrowski, Schilke, Bronfman, Henning, Walmsley, Beuther, Bontemps, Cesaroni, Deharveng, Garay, Herpin, Lefloch, Linz, Mardones, Minier, Molinari, Motte, Nyman, Reveret, Risacher, Russeil, Schneider, Testi, Troost, Vasyunina, Wienen, Zavagno, Kovacs, Kreysa, Siringo, and Weiss}}}
+\bibcite{sembach_far_2001}{{33}{2001}{{Sembach et~al.}}{{Sembach, Howk, Savage, Shull, and Oegerle}}}
+\bibcite{sharpee_introducing_2003}{{34}{2003}{{Sharpee et~al.}}{{Sharpee, Williams, Baldwin, and van Hoof}}}
+\bibcite{sigurdsson_detection_2004}{{35}{2004}{{Sigurdsson et~al.}}{{Sigurdsson, Philipsen, Hansen, Larsen, Gniadecka, and Wulf}}}
+\bibcite{skoda_spectroscopic_2014}{{36}{2014}{{Skoda et~al.}}{{Skoda, D., N., Castro, Andresic, and Jenness}}}
+\bibcite{smith_molecular_2015}{{37}{2015}{{Smith et~al.}}{{Smith, Zijlstra, and Fuller}}}
+\bibcite{smith_mr_sp_2005}{{38}{2005}{{Smith}}{{}}}
+\bibcite{struve_fundamentals_1989}{{39}{1989}{{Struve}}{{}}}
+\bibcite{turlach_simultaneous_2005}{{40}{2005}{{Turlach et~al.}}{{Turlach, Venables, and Wright}}}
+\bibcite{vastel_cassis_2015}{{41}{2015}{{Vastel et~al.}}{{Vastel, Bottinelli, Caux, Glorian, and Boiziot}}}
+\bibcite{walsh_deep_2003}{{42}{2003}{{Walsh et~al.}}{{Walsh, Péquignot, Morisset, Storey, Sharpee, Baldwin, van Hoof, and Williams}}}
+\bibcite{wright_sparse_2010}{{43}{2010}{{Wright et~al.}}{{Wright, Ma, Mairal, Sapiro, Huang, and Yan}}}
+\bibcite{xiang_learning_2011}{{44}{2011}{{Xiang et~al.}}{{Xiang, Xu, and Ramadge}}}
 \bibstyle{plainnat}
-\newlabel{LastPage}{{}{11}{}{}{}}
+\newlabel{LastPage}{{}{12}{}{}{}}

@@ -11,27 +11,29 @@
 \end{comment}
 
 % Summary: Summarizing (briefly) from specific to general
-The approach of the investigation is to identify emission lines through the reconstruction of an input signal.
-The combination of representative basis vectors allows us to predict the presence of isotope energy state's lines along wavelength spectra. 
+Our approach to identify emission lines is the reconstruction of an input signal.
+The combination of representative basis vectors allows us to predict the presence of isotopes lines along the wavelength spectra.
+The set of coefficients used to reconstruct the signal give us an idea of the presence of each isotope line.
 
-The hypothesis of this investigation can be summarized in as:
+This process can be summarized as two main hypothesis:
 i) a set of basis vectors representing theoretical lines allows to reconstruct an input spectra, and
 ii) the used combination of basis vectors gives useful information to identify the presence of emission lines along the spectra.
 
 % Confirm the topic in the introduction
-Results has shown support for the hypothesis and leaves room for improvements that increases its possibilities given the near coming of real data.
+Results has shown support for the hypothesis, but leaves room for improvements that increases its possibilities given the near arrival of new real data.
 This data will allow to future investigators to train models and capture actively the patterns in data, its correlations and hidden latent variables.
-Sparse coding technique allows to identify isotope energy states even with blending.
-In addition, even when prediction fails, the mismatch correspond to an isotope of the predicted molecule.
-With this, it is possible to give a basic notion of which is the molecular composition of the astronomical objects simulated.
-For lines with higher miss match, astronomers can focus on analyze just complex cases and automatize detection of a majority of the spectral lines.
+
+Sparse coding technique allows to identify isotope lines even when blending is present.
+This gives a notion of the molecular composition of the astronomical object and allows astronomers to focus on complex cases.
 
 % Extensibility
-A major issue in the algorithm elaboration is the lack of relative intensities patterns and co-presence dependence for isotope rotational sequences.
-That makes the algorithm not to relay in co-presences and just try to find each isotope line independently.
-Future extensibility from real data can be the inclusion of relationship between temperatures of lines belonging to the same isotope, or to learn the dependence of co-presence of lines, not for same isotopes, but for all molecules.
+A major issue in the algorithm elaboration is the lack of information about relative intensities relationships and the co-presence dependence for lines of the same isotope.
+That makes the algorithm to try to find each isotope line independently.
+Future extensibility from real data can be:
+i) the inclusion of relationship between temperatures of lines belonging to the same isotope, and 
+ii) to learn the dependence of co-presence of lines, not just for the same isotopes, but for all molecules.
 On that line, theoretical lines belonging to unknown molecules are an interesting case to cover.
-The lack of direct common patterns between these lines could be learned and relationships discovered as a way to assign them to known isotopes. 
+The possible relationships between unidentified lines and known molecules could be used as a way to assign unknown lines to an isotope. 
 
 % Finally, how the topic relates to its context
 % Next steps

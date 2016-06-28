@@ -11,6 +11,9 @@ Too many commas in name 1 of "Smith, E. , Dent, G." for entry smith_mr_sp_2005
 while executing---line 1347 of file plainnat.bst
 Warning--empty booktitle in caux_cassis_2011
 Warning--empty booktitle in gusten_apex
+Warning--empty journal in higuchi_iras_2015
+Warning--empty year in higuchi_iras_2015
+Warning--empty year in higuchi_iras_2015
 Warning--empty booktitle in howley_effect_2005
 Warning--empty booktitle in madden_classification_2005
 Warning--empty booktitle in mallat2009

@@ -244,8 +244,25 @@ P_{ik} = \cfrac{\alpha^{*}_k}{\sum_{j=1}^{d} \alpha^{*}_j}
 \label{eq:probability}
 \end{equation}
 
+Finally, the use of multiple adjacent pixels in the same cube allows to get a more reliable prediction, excluding false positives from the prediction.
+This is done by multiplying the probabilities of isotopes presence for each analyzed spectra. Let $x \in [n, \ldots, n + m]$, $y \in [v, \ldots, v + w]$, 
+
+\begin{equation}
+P_{ik} = \prod_{(n, v)}^{(n + m, v + w)} P_{ik}{(x, y)})
+\label{eq:multiple}
+\end{equation}
+
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.333 \textwidth]{images/probabilities}
+		\caption{The schematic convergence of predictions from a data cube, where 4 spectras (blue pixels in frequency deep) are analyzed independently, and their results merged into one (red).}
+		\label{fig:probabilities}
+	\end{center}
+\end{figure}
+
 % Pseudo-Code
-The pseudo-code of the algorithm is summarized in \ref{alg:algorithm}.
+The algorithm pseudo-code summary can be seen at \ref{alg:algorithm}.
 
 \begin{algorithm}[H]
     \KwData{$data\_cube$, $isotopes\_set$}
@@ -274,10 +291,10 @@ The pseudo-code of the algorithm is summarized in \ref{alg:algorithm}.
 
 % Specifications of Data Cubes
 \subsection{Training/Test set}
-For testing purposes, each lines present in simulated spectras are stored as data cube meta-data, allowing us to evaluate the predictive model and determine metrics to validate predictions.
+For testing purposes, each lines present in the simulated spectras are stored as data cube meta-data, allowing us to evaluate the predictive model and determine metrics to validate predictions.
 
 % How we separated the data
-Because of ALMA measurements and ASYDO simulator capabilities, we yield specifications for data cube with two main distinctions:
+For this, and given the ASYDO simulator capabilities, data cube specifications are separated in two main parameters:
 i) signal to noise ratio, using different ALMA bands
 ii) fixed/variable width of lines, 
 % Different Bands and Variable/Fixed Widths
