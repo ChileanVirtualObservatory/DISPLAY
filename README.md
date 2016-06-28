@@ -7,7 +7,7 @@ Authors:
 * Karim Pichara
 * Pavlos Protopapas
 * Diego Mardones
- * Mauricio Araya
+* Mauricio Araya
 
 The syntethic data was generated using the ASYDO (Astronomical SYnthetic Data Observatory) Project:
  * Mauricio Araya
