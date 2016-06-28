@@ -143,8 +143,8 @@ False double peaks product of artifacts are handled by the algorithm and it dete
 \subsection{Real Data}
 
 Additionally to synthetic results, real data from ALMA is used to test the algorithm's behavior.
-The experiments consists in the analysis over product cubes to predict isotopes associated to molecules observed for each cube.
-The used cubes are product of a deconvolution using CASA task CLEAN as explained at \cite{higuchi_iras_2015}.
+The experiments consist in the analysis of product cubes associated to molecules observed for each cube.
+The used cubes are product of a deconvolution using CASA task CLEAN, as seen at \cite{higuchi_iras_2015}.
 
 \begin{figure}[H]
 	\begin{center}
@@ -157,10 +157,13 @@ The used cubes are product of a deconvolution using CASA task CLEAN as explained
 In this case, the high density of theoretical frequencies plays a major role in the difficulty of the prediction.
 With synthetically data, a subset of isotopes were selected, but with real data, all the Splatalogue lines were include to test the process in a real world scenario.
 
+The algorithm gives a list and a probability of presence in each cube.
+In table \ref{tab:real-results} we present only predicted frequencies associated to the isotopes of interest.
 The algorithm is able to predict lines for $CH_3OH_7 (7-6)$, but the algorithm is not able to predict other isotopes of interest.
-The algorithm gives a list and a probability of presence in each cube. In table \ref{tab:real-results} we present only predicted frequencies associated to the isotopes of interest.
 
-The process of the predicted isotope can be seen in figure \ref{fig:experiment}.
+
+
+The process for file $CH_3OH_7 (7-6)$ can be seen in figure \ref{fig:experiment}.
 The amount of theoretical frequencies that must be filtered in order to make a prediction can be seen explicitly in the visual representation of the process.
 
 % Real Data
