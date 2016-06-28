@@ -1,3 +1,26 @@
+#This file is part of ChiVO, the Chilean Virtual Observatory
+#A project sponsored by FONDEF (D11I1060)
+#Copyright (C) 2015 Universidad Tecnica Federico Santa Maria Mauricio Solar
+#                                                            Marcelo Mendoza
+#                   Universidad de Chile                     Diego Mardones
+#                   Pontificia Universidad Catolica          Karim Pichara
+#                   Universidad de Concepcion                Ricardo Contreras
+#                   Universidad de Santiago                  Victor Parada
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
 import os
 import sqlite3 as lite
 import sys
@@ -52,12 +75,12 @@ class lineDB:
         #self.log.write("EXECUTING SQL SENTENCE:\n")
         #self.log.write(sentence + '\n')
         resp = self.pointer.execute(sentence)
-        return resp.fetchall()      
-    
+        return resp.fetchall()
+
     def getSpeciesLines(self,mol,freq_i,freq_e):
         select = "SELECT * FROM Lines WHERE SPECIES like '" + mol + "' AND FREQ > " + str(freq_i) + " AND FREQ < " + str(freq_e)
         return self.executeSQL(select)
- 
+
     def getMoleculeList(self,freq_i,freq_e):
         select = "SELECT DISTINCT CHEM_NAME FROM Lines WHERE FREQ > " + str(freq_i) + " AND FREQ < " + str(freq_e)
         return self.executeSQL(select)
@@ -65,7 +88,7 @@ class lineDB:
     def getSpeciesList(self,chem_name,freq_i,freq_e):
         select = "SELECT DISTINCT SPECIES FROM Lines WHERE CHEM_NAME like '" + chem_name + "' AND FREQ > " + str(freq_i) + " AND FREQ < " + str(freq_e)
         return self.executeSQL(select)
-   
+
     def VOGetLines(self,log, source, w_range = [88000,720000]):
         #w_range is in Mhz
         c = 299792458.0
@@ -246,4 +269,3 @@ class lineDB:
     def deleteDB(self):
         if os.path.isfile(self.name+".sqlite"):
             os.remove(self.name+".sqlite")
-
